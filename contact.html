@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ////////// -->
+
+
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - JAIN & SONS</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #8b0000;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 2rem;
+      position: relative;
+      height: 150px; /* Fixed height for better control */
+    }
+
+    .logo {
+      height: 120px;
+      width: auto;
+    }
+
+    .center-section {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .center-section h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .center-section p {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-top: 5px;
+    }
+
+    nav {
+      margin-left: auto;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .contact {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .contact h2 {
+      text-align: center;
+      color: #8b0000;
+    }
+    
+    .contact-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .contact-image img {
+      width: 250px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+
+    .contact-info {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      background-color: #8b0000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+     /* Responsive */
+     @media (max-width: 768px) {
+      .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .contact-image img {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="JAIN AND SONS new logo.png" alt="Logo" class="logo">
+
+  <div class="center-section">
+    <h1>JAIN & SONS</h1>
+    <p>BORING ROAD PATNA</p>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="contact">
+  <h2>Contact Us</h2>
+  <div class="contact-wrapper">
+    <!-- Left: Shop Image -->
+    <div class="contact-image">
+      <img src="shop photo/jain & sons front shop photo.jpg" alt="Jain & Sons Shop" />
+      <img src="shop photo/jain & sons shop photo.jpg" alt="Jain & Sons Shop" />
+    </div>
+  <div class="contact-info">
+    <p><strong>Store Address:</strong> Shop No: 9,19, Alankar Place, Boring Road, Patna, Bihar 800001</p>
+    <p><strong>Phone:</strong> +91 612-4003749</p>
+    <p><strong>Email:</strong> jainandsons07@gmail.com</p>
+    <p><strong>Hours:</strong> Mon-Sun: 11 AM - 8:30 PM (SUNDAY - ONLY IN FESTIVAL)</p>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 JAIN & SONS. All rights reserved.</p>
+</footer>
+
+
+
+
+
+
+
+</body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBWWnCwcdy02WaZpbNSsgj0fznVgp40aOM",
+    authDomain: "jainandsons-3b31c.firebaseapp.com",
+    projectId: "jainandsons-3b31c",
+    appId: "1:760950586458:web:f881c10ce848fa5c372c63"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // Block all interactions and redirect
+      const blockAndRedirect = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        alert("⚠️ Please log in to continue.");
+        window.location.href = "register.html";
+      };
+
+      // Apply block to all user actions
+      document.addEventListener("click", blockAndRedirect, true);
+      document.addEventListener("keydown", blockAndRedirect, true);
+      document.addEventListener("touchstart", blockAndRedirect, true);
+    }
+  });
+</script>
+</html>

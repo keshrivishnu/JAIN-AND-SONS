@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cosmetics - JAIN & SONS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+    header, footer {
+      background-color: #8b0000;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    .container {
+      padding: 2rem;
+    }
+    h2 {
+      color: #8b0000;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .brand-section {
+      margin-bottom: 3rem;
+    }
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .product-item {
+      width: 220px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    .product-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+    }
+    .product-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .product-item h3 {
+      margin: 0.8rem 0 0.4rem;
+      font-size: 1.1rem;
+      color: #333;
+    }
+    .product-item p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0 0 0.8rem;
+    }
+    .price {
+      font-weight: bold;
+      color: #8b0000;
+      margin-bottom: 1rem;
+    }
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #8b0000;
+      color: white;
+      padding: 1rem 2rem;
+    }
+    header > div {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #nav-menu a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    #nav-menu a:hover {
+      text-decoration: underline;
+    }
+    .header-center {
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-left: 110px;
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .search-bar input {
+      padding: 10px;
+      font-size: 16px;
+      width: 50%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+     /* Filter Sidebar Styling */
+     .filter-sidebar {
+      width: 250px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      background: #fefefe;
+      border-radius: 10px;
+      height: fit-content;
+    }
+    .filter-sidebar input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+    .results-info {
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    .reset, .clear {
+      color: green;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: underline;
+      float: right;
+    }
+    .filter-group {
+      margin-bottom: 20px;
+    }
+    .filter-header {
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .filter-sidebar label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+    .price-range {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+    .main-container {
+  display: flex;
+  gap: 2rem; /* space between sidebar and products */
+  padding: 2rem;
+}
+.product-section {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start; /* ✅ important to align top */
+}
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="header-left">
+      <img src="../JAIN AND SONS new logo.png" alt="JAIN & SONS Logo" style="height: 105px;">
+    </div>
+    <div class="header-center">
+      <h1 style="margin: 0;">Cosmetics Section</h1>
+      <p style="margin: 0;">Because Every Look Starts with Quality</p>
+    </div>
+    <nav id="nav-menu">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+<div class="main-container">
+<aside class="filter-sidebar">
+
+  <input type="text" id="searchBox" placeholder="Search here..." oninput="searchProducts()">
+
+  <div class="results-info">
+    Showing <span id="resultCount">0</span> results.
+    <span class="reset" onclick="resetFilters()">Reset All</span>
+  </div>
+
+  <div class="filter-group">
+    <div class="filter-header">
+      <strong>Makes</strong>
+      <span class="clear" onclick="clearBrandFilter()">Clear</span>
+    </div>
+    <label><input type="checkbox" value="lakme" onchange="applyFilters()"> Lakme</label>
+    <label><input type="checkbox" value="maybelline" onchange="applyFilters()"> Maybelline</label>
+    <label><input type="checkbox" value="biotique" onchange="applyFilters()">Biotique</label>
+  </div>
+
+  <div class="filter-group">
+    <div class="filter-header">
+      <strong>Price</strong>
+      <span class="clear" onclick="resetPrice()">Clear</span>
+    </div>
+    <input type="range" id="minPrice" min="0" max="5000" value="0" oninput="applyFilters()">
+    <input type="range" id="maxPrice" min="0" max="5000" value="5000" oninput="applyFilters()">
+    <div class="price-range">
+      ₹<span id="minPriceLabel">0</span> - ₹<span id="maxPriceLabel">5000</span>
+    </div>
+  </div>
+    </aside>
+
+
+
+    <div style="flex: 1;">
+      <h2>Lakmé Products</h2>
+<div class="product-section" id="productGrid">
+      <!-- Lakmé Absolute Matte Lip Color -->
+      <div class="product-item" data-name="Lakmé Absolute Matte Lip Color - Red Rush" data-price="₹750" data-description="Vibrant red with matte finish">
+        <img src="cosmetic-images/Lakme-images/Lakmé Absolute Matte Red Rush.webp" alt="Red Rush">
+        <h3>Lakmé Absolute Matte Red Rush</h3>
+        <p>Vibrant red with matte finish</p>
+        <div class="price">MRP: ₹750</div>
+      </div>
+      <div class="product-item" data-name="Lakmé Absolute Matte Lip Color - Rose Crush" data-price="₹750" data-description="Soft rose matte shade">
+        <img src="cosmetic-images/Lakme-images/Lakmé Absolute Matte Rose Crush.jpg" alt="Rose Crush">
+        <h3>Lakmé Absolute Matte Rose Crush</h3>
+        <p>Soft rose matte shade</p>
+        <div class="price">MRP: ₹750</div>
+      </div>
+      <div class="product-item" data-name="Lakmé Absolute Matte Lip Color - Coral Kiss" data-price="₹750" data-description="Coral pink matte shade">
+        <img src="cosmetic-images/Lakme-images/coral kiss.jpg" alt="Coral Kiss">
+        <h3>Lakmé Absolute Matte Coral Kiss</h3>
+        <p>Coral pink matte shade</p>
+        <div class="price">MRP: ₹800</div>
+      </div>
+      <div class="product-item" data-name="Lakmé Absolute Matte Lip Color - Burgundy" data-price="₹750" data-description="Deep burgundy matte color">
+        <img src="cosmetic-images/Lakme-images/Lakmé Absolute Matte Burgundy.webp" alt="Burgundy">
+        <h3>Lakmé Absolute Matte Burgundy</h3>
+        <p>Deep burgundy matte color</p>
+        <div class="price">MRP: ₹800</div>
+      </div>
+
+      <!-- Lakmé Enrich Lip Crayon -->
+      <div class="product-item" data-name="Lakmé Enrich Lip Crayon - Cherry Charm" data-price="₹550" data-description="Bold cherry red color">
+        <img src="cosmetic-images/Lakme-images/Lakmé Enrich Lip Crayon Cherry Charm.webp" alt="Cherry Charm">
+        <h3>Lakmé Enrich Lip Crayon Cherry Charm</h3>
+        <p>Bold cherry red color</p>
+        <div class="price">MRP: ₹185</div>
+      </div>
+      
+      <div class="product-item" data-name="Lakmé Enrich Lip Crayon - Peach Pink" data-price="₹550" data-description="Soft peachy pink tint">
+        <img src="cosmetic-images/Lakme-images/Lakmé Enrich Lip Crayon Peach Pink.jpg" alt="Peach Pink">
+        <h3>Lakmé Enrich Lip Crayon Peach Pink</h3>
+        <p>Soft peachy pink tint</p>
+        <div class="price">MRP: ₹185</div>
+      </div>
+      <div class="product-item" data-name="Lakmé Enrich Lip Crayon - Red Fusion" data-price="₹550" data-description="Fusion of red and orange hues">
+        <img src="cosmetic-images/Lakme-images/Lakmé Enrich Lip Crayon Red Fusion.webp" alt="Red Fusion">
+        <h3>Lakmé Enrich Lip Crayon Red Fusion</h3>
+        <p>Fusion of red and orange hues</p>
+        <div class="price">MRP: ₹185</div>
+      </div>
+
+      <!-- Lakmé 9to5 Primer + Matte Lipstick -->
+      <div class="product-item" data-name="Lakmé 9to5 Primer + Matte Lipstick - Brick Red" data-price="₹599" data-description="Deep red matte finish">
+        <img src="cosmetic-images/Lakme-images/Lakmé 9to5 Primer Brick Red.webp" alt="Brick Red">
+        <h3>Lakmé 9to5 Brick Red</h3>
+        <p>Deep red matte finish</p>
+        <div class="price">MRP: ₹650</div>
+      </div>
+      <div class="product-item" data-name="Lakmé 9to5 Primer + Matte Lipstick - Nude Twist" data-price="₹599" data-description="Soft nude color for a daily look">
+        <img src="cosmetic-images/Lakme-images/Lakmé 9to5 Primer Nude Twist.jpg" alt="Nude Twist">
+        <h3>Lakmé 9to5 Nude Twist</h3>
+        <p>Soft nude color for a daily look</p>
+        <div class="price">MRP: ₹550</div>
+      </div>
+      <div class="product-item" data-name="Lakmé 9to5 Primer + Matte Lipstick - Red Coat" data-price="₹599" data-description="Classic red with a matte finish">
+        <img src="cosmetic-images/Lakme-images/Lakmé 9to5 Primer Red Coat.jpg" alt="Red Coat">
+        <h3>Lakmé 9to5 Red Coat</h3>
+        <p>Classic red with a matte finish</p>
+        <div class="price">MRP: ₹650</div>
+      </div>
+      
+
+      <!-- Lakmé Lip Love Lip Care -->
+      <div class="product-item" data-name="Lakmé Lip Love Lip Care - Cherry" data-price="₹299" data-description="Moisturizing cherry tint">
+        <img src="cosmetic-images/Lakme-images/Lakmé Lip Love Cherry.webp" alt="Cherry">
+        <h3>Lakmé Lip Love Cherry</h3>
+        <p>Moisturizing cherry tint</p>
+        <div class="price">MRP: ₹160</div>
+      </div>
+      <div class="product-item" data-name="Lakmé Lip Love Lip Care - Strawberry" data-price="₹299" data-description="Soft strawberry scent and color">
+        <img src="cosmetic-images/Lakme-images/Lakmé Lip Love Strawberry" alt="Strawberry">
+        <h3>Lakmé Lip Love Strawberry</h3>
+        <p>Soft strawberry scent and color</p>
+        <div class="price">MRP: ₹160</div>
+      </div>
+      <div class="product-item" data-name="Lakmé Lip Love Lip Care - Peach" data-price="₹299" data-description="Peach fragrance and moisturization">
+        <img src="cosmetic-images/Lakme-images/Lakmé Lip Love Peach" alt="Peach">
+        <h3>Lakmé Lip Love Peach</h3>
+        <p>Peach fragrance and moisturization</p>
+        <div class="price">MRP: ₹160</div>
+      </div>
+      
+
+      <!-- Lakmé Absolute Lip Pout Matte Lip Color -->
+      
+
+      <!-- Lakmé Liquid Matte Lipstick -->
+      <div class="product-item" data-name="Lakmé Liquid Matte Lipstick - Red Alert" data-price="₹850" data-description="Bold liquid matte red">
+        <img src="cosmetic-images/Lakme-images/Lakmé Liquid Matte Red Alert" alt="Red Alert">
+        <h3>Lakmé Liquid Matte Red Alert</h3>
+        <p>Bold liquid matte red</p>
+        <div class="price">MRP: ₹295</div>
+      </div>
+
+      <!-- Lakmé Absolute Sculpt Matte Lipstick -->
+      <div class="product-item" data-name="Lakmé Absolute Sculpt Matte Lipstick - Violet Flame" data-price="₹899" data-description="Vibrant violet matte finish">
+        <img src="cosmetic-images/Lakme-images/Lakmé Absolute Sculpt Violet Flame.webp" alt="Violet Flame">
+        <h3>Lakmé Absolute Sculpt Violet Flame</h3>
+        <p>Vibrant violet matte finish</p>
+        <div class="price">MRP: ₹800</div>
+      </div>
+
+
+       <!-- Add Kajal section -->
+       <div class="product-item" data-name="Lakmé Kajal - Black" data-price="₹199" data-description="Intense black kajal for bold eyes">
+        <img src="cosmetic-images/Lakme-images/lakme kajal.jpeg" alt="Black Kajal">
+        <h3>Lakmé Kajal Black</h3>
+        <p>Intense black kajal for bold eyes</p>
+        <div class="price">MRP: ₹210</div>
+      </div>
+
+<!-- Add Mascara section -->
+<div class="product-item" data-name="Lakmé Mascara - Black" data-price="₹299" data-description="Volumizing black mascara for fuller lashes">
+  <img src="cosmetic-images/Lakme-images/lakme mascara.webp" alt="Black Mascara">
+  <h3>Lakmé Mascara Black</h3>
+  <p>Volumizing black mascara for fuller lashes</p>
+  <div class="price">MRP: ₹450</div>
+</div>
+
+<!-- Add Eye Liner section -->
+<div class="product-item" data-name="Lakmé Eye Liner - Black" data-price="₹350" data-description="Precise black eyeliner for perfect wings">
+  <img src="cosmetic-images/Lakme-images/lkame eyeliner black.webp" alt="Black Eyeliner">
+  <h3>Lakmé Eye Liner Black</h3>
+  <p>Precise black eyeliner for perfect wings</p>
+  <div class="price">MRP: ₹299</div>
+</div>
+
+<!-- Add Eye Shadow section -->
+<div class="product-item" data-name="Lakmé Eye Shadow - Shimmer Gold" data-price="₹399" data-description="Shimmering gold eye shadow for a glowing look">
+  <img src="cosmetic-images/Lakme-images/lakme eye shadow.webp" alt="Gold Eye Shadow">
+  <h3>Lakmé Eye Shadow </h3>
+  <p> eye shadow for a glowing look</p>
+  <div class="price">MRP: ₹675</div>
+</div>
+    
+
+
+
+<!-- Highlighter (New section) -->
+<div class="product-item" data-name="Lakmé Absolute Highlighter - Golden" data-price="₹700" data-description="Golden shine for a radiant glow">
+  <img src="cosmetic-images/Lakme-images/Lakmé Absolute Highlighter Golden.webp" alt="Golden Highlighter">
+  <h3>Lakmé Absolute Highlighter Golden</h3>
+  <p>Golden shine for a radiant glow</p>
+  <div class="price">MRP: ₹695</div>
+</div>
+
+<!-- Concealer (New section) -->
+<div class="product-item" data-name="Lakmé Absolute Concealer - Beige" data-price="₹650" data-description="Perfect coverage for under-eye circles">
+  <img src="cosmetic-images/Lakme-images/Lakmé Absolute Concealer Beige.webp" alt="Beige Concealer">
+  <h3>Lakmé Absolute Concealer Beige</h3>
+  <p>Perfect coverage for under-eye circles</p>
+  <div class="price">MRP: ₹625</div>
+</div>
+
+<!-- Compact (New section) -->
+<div class="product-item" data-name="Lakmé Absolute Face Powder Compact - Ivory" data-price="₹850" data-description="Perfect matte finish with a soft texture">
+  <img src="cosmetic-images/Lakme-images/Lakmé Absolute Face Powder Compact Ivory.jpg" alt="Ivory Compact">
+  <h3>Lakmé Absolute Face Powder Compact Ivory</h3>
+  <p>Perfect matte finish with a soft texture</p>
+  <div class="price">MRP: ₹190</div>
+</div>
+
+    <!-- Add Nail Colors section -->
+<div class="product-item" data-name="Lakmé Nail Color - Red Passion" data-price="₹250" data-description="Vibrant red nail color">
+  <img src="cosmetic-images/Lakme-images/Lakmé Nail Color Red Passion.webp" alt="Red Passion Nail Color">
+  <h3>Lakmé Nail Color Red Passion</h3>
+  <p>Vibrant red nail color</p>
+  <div class="price">MRP: ₹275</div>
+</div>
+
+<div class="product-item" data-name="Lakmé Nail Color - Pink Blush" data-price="₹250" data-description="Soft pink nail color for a fresh look">
+  <img src="cosmetic-images/Lakme-images/Lakmé Nail Color Pink Blush.jpg" alt="Pink Blush Nail Color">
+  <h3>Lakmé Nail Color Pink Blush</h3>
+  <p>Soft pink nail color for a fresh look</p>
+  <div class="price">MRP: ₹275</div>
+</div>
+
+<div class="product-item" data-name="Lakmé Nail Color - Nude Glow" data-price="₹250" data-description="Natural nude nail color for everyday wear">
+  <img src="cosmetic-images/Lakme-images/Lakmé Nail Color Nude Glow.jpg" alt="Nude Glow Nail Color">
+  <h3>Lakmé Nail Color Nude Glow</h3>
+  <p>Natural nude nail color for everyday wear</p>
+  <div class="price">MRP: ₹275</div>
+</div>
+
+<div class="product-item" data-name="Lakmé Nail Color - Purple Dream" data-price="₹250" data-description="Elegant purple nail color for special occasions">
+  <img src="cosmetic-images/Lakme-images/Lakmé Nail Color Purple Dream.webp" alt="Purple Dream Nail Color">
+  <h3>Lakmé Nail Color Purple Dream</h3>
+  <p>Elegant purple nail color for special occasions</p>
+  <div class="price">MRP: ₹199</div>
+</div>
+
+<!-- Add Nail Polish Remover section -->
+<div class="product-item" data-name="Lakmé Nail Polish Remover" data-price="₹150" data-description="Gentle nail polish remover with vitamin E">
+  <img src="cosmetic-images/Lakme-images/nail remover.webp" alt="Nail Polish Remover">
+  <h3>Lakmé Nail Polish Remover</h3>
+  <p>Gentle nail polish remover with vitamin E</p>
+  <div class="price">MRP: ₹99</div>
+</div>
+
+    
+
+
+<!-- Skincare Section -->
+<div class="product-item" data-name="Lakmé Moisturizer - Hydrating" data-price="₹299" data-description="Deep hydration for smooth skin">
+  <img src="cosmetic-images/Lakme-images/lakme hydrating mo.webp" alt="Moisturizer">
+  <h3>Lakmé Hydrating Moisturizer</h3>
+  <p>Deep hydration for smooth skin</p>
+  <div class="price">MRP: ₹600</div>
+</div>
+<div class="product-item" data-name="Lakmé Serum - Glow Boost" data-price="₹499" data-description="Boosts skin glow with vitamin C">
+  <img src="cosmetic-images/Lakme-images/lakme glow booost serum.webp" alt="Serum">
+  <h3>Lakmé Glow Boost Serum</h3>
+  <p>Boosts skin glow with vitamin C</p>
+  <div class="price">MRP: ₹599</div>
+</div>
+<div class="product-item" data-name="Lakmé Sun Protection - SPF 50" data-price="₹399" data-description="High protection against UV rays">
+  <img src="cosmetic-images/Lakme-images/lakme spf 50+ sun protection.webp" alt="Sun Protection">
+  <h3>Lakmé SPF 50 Sun Protection</h3>
+  <p>High protection against UV rays</p>
+  <div class="price">MRP: ₹325</div>
+</div>
+<div class="product-item" data-name="Lakmé Face Cleanser - Gentle" data-price="₹250" data-description="Gentle face cleanser for all skin types">
+  <img src="cosmetic-images/Lakme-images/gentle face cleanser.webp" alt="Face Cleanser">
+  <h3>Lakmé Gentle Face Cleanser</h3>
+  <p>Gentle face cleanser for all skin types</p>
+  <div class="price">MRP: ₹150</div>
+</div>
+<div class="product-item" data-name="Lakmé Makeup Remover - Sensitive Skin" data-price="₹299" data-description="Removes makeup without irritating sensitive skin">
+  <img src="cosmetic-images/Lakme-images/makeup remover sensitive skin.jpeg" alt="Makeup Remover">
+  <h3>Lakmé Sensitive Skin Makeup Remover</h3>
+  <p>Removes makeup without irritating sensitive skin</p>
+  <div class="price">MRP: ₹350</div>
+</div>
+<div class="product-item" data-name="Lakmé Face Mask - Refreshing" data-price="₹450" data-description="Refreshing face mask for a bright glow">
+  <img src="cosmetic-images/Lakme-images/sheet mask.webp" alt="Face Mask">
+  <h3>Lakmé Refreshing Face Sheet Mask</h3>
+  <p>Refreshing face mask for a bright glow</p>
+  <div class="price">MRP: ₹100</div>
+</div>
+
+<!-- Additional Skincare Categories -->
+
+<div class="product-item" data-name="Lakmé Radiance Cream" data-price="₹349" data-description="Cream that gives an instant glow">
+  <img src="cosmetic-images/Lakme-images/perfect radiance.webp" alt="Radiance Cream">
+  <h3>Lakmé Perfect Radiance Cream</h3>
+  <p>Cream that gives an instant glow</p>
+  <div class="price">MRP: ₹250</div>
+</div>
+
+<div class="product-item" data-name="Lakmé Youth Infinity Serum" data-price="₹699" data-description="Reduces fine lines and wrinkles">
+  <img src="cosmetic-images/Lakme-images/Youth infinity serum.webp" alt="Youth Infinity">
+  <h3>Lakmé Youth Infinity Serum</h3>
+  <p>Reduces fine lines and wrinkles</p>
+  <div class="price">MRP: ₹499</div>
+</div>
+
+
+<div class="product-item" data-name="Lakmé Winter Intense Moisturizer" data-price="₹299" data-description="Nourishing care for dry skin">
+  <img src="cosmetic-images/Lakme-images/winter intense.jpg" alt="Winter Moisturizer">
+  <h3>Lakmé Intense Moisturizer</h3>
+  <p>Nourishing care for dry skin</p>
+  <div class="price">MRP: ₹199</div>
+</div>
+
+<div class="product-item" data-name="Lakmé Eye Cream" data-price="₹450" data-description="Reduces puffiness and dark circles">
+  <img src="cosmetic-images/Lakme-images/under eye cream.webp" alt="Eye Cream">
+  <h3>Lakmé Eye Cream</h3>
+  <p>Reduces puffiness and dark circles</p>
+  <div class="price">MRP: ₹549</div>
+</div>
+</section>
+  <section id="maybelline-Products" class="brand-section">
+    <h2>Maybelline Products</h2>
+    <div class="product-grid">
+  
+      <div class="product-item" data-name="Maybelline Touch of Spice" data-price="₹299" data-description="A warm mauve matte lipstick for everyday wear">
+        <img src="cosmetic-images/maybelline-images/touch of spice lipsticks.webp" alt="Touch of Spice Lipstick">
+        <h3>Touch of Spice</h3>
+        <p>A warm mauve matte lipstick for everyday wear</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Siren in Scarlet" data-price="₹329" data-description="Bold red matte lipstick with a classic finish">
+        <img src="cosmetic-images/maybelline-images/siren in scarlet lipstick.webp" alt="Siren in Scarlet Lipstick">
+        <h3>Siren in Scarlet</h3>
+        <p>Bold red matte lipstick with a classic finish</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Nude Nuance" data-price="₹299" data-description="Subtle brown nude lipstick perfect for daily wear">
+        <img src="cosmetic-images/maybelline-images/nude nuance lipsticks.avif" alt="Nude Nuance Lipstick">
+        <h3>Nude Nuance</h3>
+        <p>Subtle brown nude lipstick perfect for daily wear</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Divine Wine" data-price="₹349" data-description="A deep wine red lipstick for an intense, bold look">
+        <img src="cosmetic-images/maybelline-images/divine wine lipstick.webp" alt="Divine Wine Lipstick">
+        <h3>Divine Wine</h3>
+        <p>A deep wine red lipstick for an intense, bold look</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Rich Ruby" data-price="₹329" data-description="A rich ruby red for a strikingly glamorous finish">
+        <img src="cosmetic-images/maybelline-images/rich ruby lipstick.jpg" alt="Rich Ruby Lipstick">
+        <h3>Rich Ruby</h3>
+        <p>A rich ruby red for a strikingly glamorous finish</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Clay Crush" data-price="₹299" data-description="A warm terracotta shade with a soft matte finish">
+        <img src="cosmetic-images/maybelline-images/clay crush.webp" alt="Clay Crush Lipstick">
+        <h3>Clay Crush</h3>
+        <p>A warm terracotta shade with a soft matte finish</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Almond Pink" data-price="₹299" data-description="A soft and subtle almond pink shade for everyday elegance">
+        <img src="cosmetic-images/maybelline-images/almond oink.jpg" alt="Almond Pink Lipstick">
+        <h3>Almond Pink</h3>
+        <p>A soft and subtle almond pink shade for everyday elegance</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Crazy for Coffee" data-price="₹299" data-description="A bold coffee brown shade with a matte finish for a powerful look">
+        <img src="cosmetic-images/maybelline-images/crazy for coddee.jpg" alt="Crazy for Coffee Lipstick">
+        <h3>Crazy for Coffee</h3>
+        <p>A bold coffee brown shade with a matte finish for a powerful look</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Mesmerizing Magenta" data-price="₹329" data-description="A vibrant magenta shade that gives a fun and bold look">
+        <img src="cosmetic-images/maybelline-images/mesmerizing magenta lipstick.jpg" alt="Mesmerizing Magenta Lipstick">
+        <h3>Mesmerizing Magenta</h3>
+        <p>A vibrant magenta shade that gives a fun and bold look</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+      <div class="product-item" data-name="Maybelline Lust for Blush" data-price="₹299" data-description="A soft pink blush with a matte finish perfect for any occasion">
+        <img src="cosmetic-images/maybelline-images/lust for blush.jpg" alt="Lust for Blush Lipstick">
+        <h3>Lust for Blush</h3>
+        <p>A soft pink blush with a matte finish perfect for any occasion</p>
+        <div class="price">MRP: ₹329</div>
+      </div>
+  
+    <div class="product-item" data-name="Maybelline Fuchsia Flash" data-price="₹339" data-description="A vibrant fuchsia pink for a bold and lively look">
+      <img src="cosmetic-images/maybelline-images/fuchsia flash lipstick.jpg" alt="Fuchsia Flash Lipstick">
+      <h3>Fuchsia Flash</h3>
+      <p>A vibrant fuchsia pink for a bold and lively look</p>
+      <div class="price">MRP: ₹329</div>
+    </div>
+
+    <div class="product-item" data-name="Maybelline Plum Perfection" data-price="₹349" data-description="A rich plum shade with deep undertones for evening glam">
+      <img src="cosmetic-images/maybelline-images/plum perfection lipstick.jpg" alt="Plum Perfection Lipstick">
+      <h3>Plum Perfection</h3>
+      <p>A rich plum shade with deep undertones for evening glam</p>
+      <div class="price">MRP: ₹399</div>
+    </div>
+
+    <div class="product-item" data-name="Maybelline Peach Personality" data-price="₹319" data-description="A fresh peachy coral that adds brightness to your smile">
+      <img src="cosmetic-images/maybelline-images/peach personality lipstick.jpg" alt="Peach Personality Lipstick">
+      <h3>Peach Personality</h3>
+      <p>A fresh peachy coral that adds brightness to your smile</p>
+      <div class="price">MRP: ₹429</div>
+    </div>
+      <!-- Baby Lips® Moisturizing Lip Balm -->
+      <div class="product-item" data-name="Baby Lips Quenched" data-price="₹175" data-description="Hydrates lips for 8 hours with a clear finish.">
+        <img src="cosmetic-images/maybelline-images/baby lip quenched.jpg" alt="Baby Lips Quenched">
+        <h3>Baby Lips Quenched</h3>
+        <p>Hydrates lips for 8 hours with a clear finish.</p>
+        <div class="price">MRP: ₹175</div>
+      </div>
+  
+      <div class="product-item" data-name="Baby Lips Cherry Me" data-price="₹175" data-description="Tinted lip balm with a sweet cherry flavor.">
+        <img src="cosmetic-images/maybelline-images/baby lip cherry me.jpg" alt="Baby Lips Cherry Me">
+        <h3>Baby Lips Cherry Me</h3>
+        <p>Tinted lip balm with a sweet cherry flavor.</p>
+        <div class="price">MRP: ₹175</div>
+      </div>
+  
+      <div class="product-item" data-name="Baby Lips Pink Punch" data-price="₹175" data-description="Bright pink tint with 8-hour hydration.">
+        <img src="cosmetic-images/maybelline-images/baby lip pink punch.jpg" alt="Baby Lips Pink Punch">
+        <h3>Baby Lips Pink Punch</h3>
+        <p>Bright pink tint with 8-hour hydration.</p>
+        <div class="price">MRP: ₹175</div>
+      </div>
+  
+      <div class="product-item" data-name="Baby Lips Peach Kiss" data-price="₹175" data-description="Subtle peach tint with a hint of shimmer.">
+        <img src="cosmetic-images/maybelline-images/babay lips peach kiss.jpg" alt="Baby Lips Peach Kiss">
+        <h3>Baby Lips Peach Kiss</h3>
+        <p>Subtle peach tint with a hint of shimmer.</p>
+        <div class="price">MRP: ₹175</div>
+      </div>
+  
+      <!-- Baby Lips® Dr. Rescue® Medicated Lip Balm -->
+      <div class="product-item" data-name="Dr. Rescue Coral Crave" data-price="₹199" data-description="Medicated balm with eucalyptus for sore lips.">
+        <img src="cosmetic-images/maybelline-images/baby lip Dr. Rescue Coral Crave.jpg" alt="Dr. Rescue Coral Crave">
+        <h3>Dr. Rescue Coral Crave</h3>
+        <p>Medicated balm with eucalyptus for sore lips.</p>
+        <div class="price">MRP: ₹199</div>
+      </div>
+  
+      <!-- Baby Lips® Glow Balm -->
+      <div class="product-item" data-name="Glow Balm My Pink" data-price="₹199" data-description="pH-reactive balm for a custom pink glow.">
+        <img src="cosmetic-images/maybelline-images/glow balm my pink.webp" alt="Glow Balm My Pink">
+        <h3>Glow Balm My Pink</h3>
+        <p>pH-reactive balm for a custom pink glow.</p>
+        <div class="price">MRP: ₹199</div>
+      </div>
+  
+      <!-- Baby Lips® Crystal Moisturizing Lip Balm -->
+      <div class="product-item" data-name="Crystal Kiss" data-price="₹175" data-description="Shimmery finish with moisturizing formula.">
+        <img src="cosmetic-images/maybelline-images/baby lips crystal kiss.webp" alt="Crystal Kiss">
+        <h3>Crystal Kiss</h3>
+        <p>Shimmery finish with moisturizing formula.</p>
+        <div class="price">MRP: ₹175</div>
+      </div>
+  
+      <!-- Baby Lips® Loves Color Lip Balm -->
+      <div class="product-item" data-name="Berry Crush" data-price="₹150" data-description="8-hour hydration with a berry tint.">
+        <img src="cosmetic-images/maybelline-images/baby lips berry crush.jpg" alt="Berry Crush">
+        <h3>Berry Crush</h3>
+        <p>8-hour hydration with a berry tint.</p>
+        <div class="price">MRP: ₹199</div>
+      </div>
+  
+      <div class="product-item" data-name="Cherry Kiss" data-price="₹150" data-description="Cherry-flavored balm with a hint of color.">
+        <img src="cosmetic-images/maybelline-images/baby lips cherry kiss.jpg" alt="Cherry Kiss">
+        <h3>Cherry Kiss</h3>
+        <p>Cherry-flavored balm with a hint of color.</p>
+        <div class="price">MRP: ₹199</div>
+      </div>
+  
+      <div class="product-item" data-name="Pink Lolita" data-price="₹150" data-description="Playful pink tint with moisturizing benefits.">
+        <img src="cosmetic-images/maybelline-images/pink lolita.jpg" alt="Pink Lolita">
+        <h3>Pink Lolita</h3>
+        <p>Playful pink tint with moisturizing benefits.</p>
+        <div class="price">MRP: ₹199</div>
+      </div>
+  
+      <div class="product-item" data-name="Lifter Gloss - Cupcake" data-price="₹599" data-description="Hydrating lip gloss with hyaluronic acid and sheer tint in Cupcake shade.">
+        <img src="cosmetic-images/maybelline-images/lifter gloss.jpg" alt="Lifter Gloss Cupcake">
+        <h3>Lifter Gloss - Cupcake</h3>
+        <p>Hydrating lip gloss with hyaluronic acid and sheer tint in Cupcake shade.</p>
+        <div class="price">MRP: ₹799</div>
+      </div>
+  
+      <div class="product-item" data-name="Lash Sensational Mascara" data-price="₹499" data-description="Volumizes and fans out lashes for a fuller look.">
+        <img src="cosmetic-images/maybelline-images/lash sensational mascara" alt="Lash Sensational Mascara">
+        <h3>Lash Sensational Mascara</h3>
+        <p>Volumizes and fans out lashes for a fuller look.</p>
+        <div class="price">MRP: ₹649</div>
+      </div>
+  
+      <div class="product-item" data-name="Colossal Volum’ Express Mascara" data-price="₹399" data-description="Gives 9x volume with a rich black formula.">
+        <img src="cosmetic-images/maybelline-images/Colossal Volum’ Express Mascara.jpg" alt="Colossal Volum’ Express Mascara">
+        <h3>Colossal Volum’ Express Mascara</h3>
+        <p>Gives 9x volume with a rich black formula.</p>
+        <div class="price">MRP: ₹499</div>
+      </div>
+  
+      <div class="product-item" data-name="Hypercurl Waterproof Mascara" data-price="₹450" data-description="Curl lashes and hold curl all day with waterproof formula.">
+        <img src="cosmetic-images/maybelline-images/hypercurl waterproof mascara.webp" alt="Hypercurl Waterproof Mascara">
+        <h3>Hypercurl Waterproof Mascara</h3>
+        <p>Curl lashes and hold curl all day with waterproof formula.</p>
+        <div class="price">MRP: ₹499</div>
+      </div>
+  
+      <div class="product-item" data-name="Falsies Lash Lift Mascara" data-price="₹499" data-description="Lifts and curls lashes to give a false lash effect.">
+        <img src="cosmetic-images/maybelline-images/falsies lash lift mascara.webp" alt="Falsies Lash Lift Mascara">
+        <h3>Falsies Lash Lift Mascara</h3>
+        <p>Lifts and curls lashes to give a false lash effect.</p>
+        <div class="price">MRP: ₹599</div>
+      </div>
+  
+
+      <div class="product-item" data-name="Colossal Kajal" data-price="₹199" data-description="Intense black kajal for smudge-proof definition.">
+        <img src="cosmetic-images/maybelline-images/colossal kajal.webp" alt="Colossal Kajal">
+        <h3>Colossal Kajal</h3>
+        <p>Intense black kajal for smudge-proof definition.</p>
+        <div class="price">MRP: ₹199</div>
+      </div>
+  
+      <div class="product-item" data-name="Lasting Drama Kajal" data-price="₹275" data-description="Rich color payoff with long-lasting, waterproof formula.">
+        <img src="cosmetic-images/maybelline-images/lasting drama gel eyeliner.avif" alt="Lasting Drama Kajal">
+        <h3>Lasting Drama Kajal</h3>
+        <p>Rich color payoff with long-lasting, waterproof formula.</p>
+        <div class="price">MRP: ₹599</div>
+      </div>
+
+      <div class="product-item" data-name="The Nudes Eyeshadow Palette" data-price="₹750" data-description="12 neutral shades for everyday looks.">
+        <img src="cosmetic-images/maybelline-images/nudes eyeshadow palette.webp" alt="The Nudes Eyeshadow Palette">
+        <h3>The Nudes Eyeshadow Palette</h3>
+        <p>12 neutral shades for everyday looks.</p>
+        <div class="price">MRP: ₹5000</div>
+      </div>
+  
+      <div class="product-item" data-name="City Mini Eyeshadow Palette" data-price="₹650" data-description="Compact palette with 6 vibrant shades.">
+        <img src="cosmetic-images/maybelline-images/city mini eyeshadow palette.avif" alt="City Mini Eyeshadow Palette">
+        <h3>City Mini Eyeshadow Palette</h3>
+        <p>Compact palette with 6 vibrant shades.</p>
+        <div class="price">MRP: ₹780</div>
+      </div>
+
+      <div class="product-item" data-name="Fit Me Matte + Poreless Foundation" data-price="₹550" data-description="Matte finish foundation for normal to oily skin.">
+        <img src="cosmetic-images/maybelline-images/Fit Me Matte + Poreless Foundation.webp" alt="Fit Me Matte + Poreless Foundation">
+        <h3>Fit Me Matte + Poreless Foundation</h3>
+        <p>Matte finish foundation for normal to oily skin.</p>
+        <div class="price">MRP: ₹649</div>
+      </div>
+
+      <div class="product-item" data-name="Dream Urban Cover Foundation" data-price="₹650" data-description="SPF 50 foundation with medium coverage.">
+        <img src="cosmetic-images/maybelline-images/Dream Urban Cover Foundation.jpg" alt="Dream Urban Cover Foundation">
+        <h3>Dream Urban Cover Foundation</h3>
+        <p>SPF 50 foundation with medium coverage.</p>
+        <div class="price">MRP: ₹2750</div>
+      </div>
+
+      <div class="product-item" data-name="Master Chrome Metallic Highlighter" data-price="₹550" data-description="Highly pigmented metallic highlighter for a radiant glow.">
+        <img src="cosmetic-images/maybelline-images/Master Chrome Metallic Highlighter.webp" alt="Master Chrome Metallic Highlighter">
+        <h3>Master Chrome Metallic Highlighter</h3>
+        <p>Highly pigmented metallic highlighter for a radiant glow.</p>
+        <div class="price">MRP: ₹550</div>
+      </div>
+  
+      <div class="product-item" data-name="Facestudio Master Strobing Liquid" data-price="₹650" data-description="Liquid highlighter for a natural luminous finish.">
+        <img src="cosmetic-images/maybelline-images/Facestudio Master Strobing Liquid.jpg" alt="Facestudio Master Strobing Liquid">
+        <h3>Facestudio Master Strobing Liquid</h3>
+        <p>Liquid highlighter for a natural luminous finish.</p>
+        <div class="price">MRP: ₹665</div>
+      </div>
+
+      <div class="product-item" data-name="Fit Me Blush" data-price="₹500" data-description="Natural-looking blush with buildable color.">
+        <img src="cosmetic-images/maybelline-images/fit me blush.jpg" alt="Fit Me Blush">
+        <h3>Fit Me Blush</h3>
+        <p>Natural-looking blush with buildable color.</p>
+        <div class="price">MRP: ₹599</div>
+      </div>
+
+    <div class="product-item" data-name="Fit Me Concealer" data-price="₹450" data-description="Natural finish, lightweight concealer for under eyes and face.">
+      <img src="cosmetic-images/maybelline-images/Fit Me Concealer.jpg" alt="Fit Me Concealer">
+      <h3>Fit Me Concealer</h3>
+      <p>Natural finish, lightweight concealer for under eyes and face.</p>
+      <div class="price">MRP: ₹599</div>
+    </div>
+
+    <div class="product-item" data-name="Instant Age Rewind Eraser Dark Circles" data-price="₹550" data-description="Targets dark circles and brightens under-eye area instantly.">
+      <img src="cosmetic-images/maybelline-images/Instant Age Rewind Eraser Dark Circles.avif" alt="Instant Age Rewind Concealer">
+      <h3>Instant Age Rewind Eraser Dark Circles</h3>
+      <p>Targets dark circles and brightens under-eye area instantly.</p>
+      <div class="price">MRP: ₹749</div>
+    </div>
+  </section>
+
+  <section id="biotique-Products" class="brand-section">
+    <h2>Biotique Products</h2>
+  
+    <!-- Shampoo & Conditioner Subsection -->
+    <div class="brand-section">
+      <div class="product-grid">
+  
+        <div class="product-item" data-name="Soya Protein Intense Repair" data-price="₹220" data-description="Repairs dry and damaged hair, promotes healthy shine">
+          <img src="cosmetic-images/biotique-images/soya protein shampoo.webp" alt="Soya Protein Shampoo">
+          <h3>Soya Protein Intense Repair</h3>
+          <p>Repairs dry and damaged hair, promotes healthy shine</p>
+          <div class="price">MRP: ₹500</div>
+        </div>
+  
+        <div class="product-item" data-name="Onion Black Seed Shampoo" data-price="₹299" data-description="Strengthens and refreshes hair, 300ml">
+          <img src="cosmetic-images/biotique-images/ocean kepl anti hair fall shampoo.webp" alt="Ocean kelp anti hair fall shampoo">
+          <h3>Ocean kelp anti hair fall shampoo</h3>
+          <p>Anti Hair fall, Intensive hair growth, Healthier shine</p>
+          <div class="price">MRP: ₹130</div>
+        </div>
+  
+        <div class="product-item" data-name="Fresh Henna Colour Protect" data-price="₹250" data-description="Color protection, cleanse and condition hair">
+          <img src="cosmetic-images/biotique-images/fresh henna colour protect shampoo.webp" alt="Fresh Henna Colour Protect Shampoo">
+          <h3>Fresh Henna Colour Protect</h3>
+          <p>Color protection, cleanse and condition hair</p>
+          <div class="price">MRP: ₹130</div>
+        </div>
+  
+        <div class="product-item" data-name="Walnut Volume & Bounce" data-price="₹245" data-description="Prevents hair loss, revives hair with volume & bounce">
+          <img src="cosmetic-images/biotique-images/walnut volume & boubce shampoo.webp" alt="Walnut Volume & Bounce Shampoo">
+          <h3>Walnut Volume & Bounce</h3>
+          <p>Prevents hair loss, revives hair with volume & bounce</p>
+          <div class="price">MRP: ₹399</div>
+        </div>
+  
+        <div class="product-item" data-name="Green Apple Shine & Gloss" data-price="₹230" data-description="Provides shine, nourishes scalp, soft & smooth hair">
+          <img src="cosmetic-images/biotique-images/green apple shine & gloss shampoo.webp" alt="Green Apple Shine & Gloss Shampoo">
+          <h3>Green Apple Shine & Gloss</h3>
+          <p>Provides shine, nourishes scalp, soft & smooth hair</p>
+          <div class="price">MRP: ₹130</div>
+        </div>
+  
+        <div class="product-item" data-name="Ocean Kelp Anti Hair Fall" data-price="₹260" data-description="Anti-hair fall, intensive growth, healthier shine">
+          <img src="cosmetic-images/biotique-images/onion black seed shampoo.webp" alt="Onion black seed shampoo">
+          <h3>Onion black seed shampoo 300ml</h3>
+          <p>Strong and Shining hair, Refreshing & Strengthening Shampoo</p>
+          <div class="price">MRP: ₹330</div>
+        </div>
+
+        <!-- Creams Subsection -->
+<div class="brand-section">
+  <div class="product-grid">
+
+    <div class="product-item" data-name="Saffron Youth Anti-Ageing Cream" data-price="₹320" data-description="Reduces fine lines, radiant skin, lightens dark spots">
+      <img src="cosmetic-images/biotique-images/saffron youth cream.webp" alt="Saffron Youth Anti-Ageing Cream">
+      <h3>Saffron Youth Anti-Ageing Cream</h3>
+      <p>Reduces fine lines, radiant skin, lightens dark spots</p>
+      <div class="price">MRP: ₹399</div>
+    </div>
+
+    <div class="product-item" data-name="Wheatgerm Night Cream" data-price="₹310" data-description="Reduces fine lines, strengthens skin, lightens dark spots">
+      <img src="cosmetic-images/biotique-images/Wheat-Germ_Night-Cream_50g.webp" alt="Wheatgerm Anti-Ageing Night Cream">
+      <h3>Wheatgerm Night Cream</h3>
+      <p>Reduces fine lines, strengthens skin, lightens dark spots</p>
+      <div class="price">MRP: ₹399</div>
+    </div>
+
+    <div class="product-item" data-name="Morning Nectar Moisturizing Cream Bar" data-price="₹150" data-description="Moisturizes skin, visibly flawless, deeply cleanses">
+      <img src="cosmetic-images/biotique-images/morning nectar cream bathing bar.webp" alt="Morning Nectar Moisturizing Cream Bar">
+      <h3>Morning Nectar Cream Bar</h3>
+      <p>Moisturizes skin, visibly flawless, deeply cleanses</p>
+      <div class="price">MRP: ₹120</div>
+    </div>
+
+    <div class="product-item" data-name="Morning Nectar Nourish & Hydrate Cream" data-price="₹275" data-description="Nourishes & hydrates skin, ensures flawless skin">
+      <img src="cosmetic-images/biotique-images/morning nectar nourish & hydrate cream.webp" alt="Morning Nectar Nourish & Hydrate Cream">
+      <h3>Morning Nectar Nourish & Hydrate Cream</h3>
+      <p>Nourishes & hydrates skin, ensures flawless skin</p>
+      <div class="price">MRP: ₹600</div>
+    </div>
+
+    <!-- Face Packs Subsection -->
+
+
+    <div class="product-item" data-name="Fruit Brightening Depigmentation & Tan Removal Face Pack" data-price="₹199" data-description="Tan removal, depigmentation, youthful tone and texture">
+      <img src="cosmetic-images/biotique-images/fruit brightening tan removal face pack.webp" alt="Fruit Brightening Face Pack">
+      <h3>Fruit Brightening Face Pack</h3>
+      <p>Tan removal, depigmentation, youthful tone and texture</p>
+      <div class="price">MRP: ₹360</div>
+    </div>
+    <div class="product-item" data-name="Morning Nectar Nourish & Hydrate Moisturizer" data-price="₹210" data-description="Removes blemishes, nourishes & hydrates, ensures flawless skin">
+      <img src="cosmetic-images/biotique-images/morning nectar moistuizer.webp" alt="Morning Nectar Nourish & Hydrate Moisturizer">
+      <h3>Morning Nectar Moisturizer</h3>
+      <p>Removes blemishes, nourishes & hydrates, ensures flawless skin</p>
+      <div class="price">MRP: ₹660</div>
+    </div>
+    <div class="product-item" data-name="Cucumber Pore Tightening Refreshing Toner" data-price="₹180" data-description="Prevents Pimples, Reduces dark spots, Cools the skin">
+      <img src="cosmetic-images/biotique-images/cucumber pore toner.webp" alt="Cucumber Pore Tightening Refreshing Toner">
+      <h3>Cucumber Pore Tightening Refreshing Toner</h3>
+      <p>Prevents Pimples, Reduces dark spots, Cools the skin</p>
+      <div class="price">MRP: ₹260</div>
+    </div>
+    
+    <div class="product-item" data-name="Honey Water Pore Tightening Brightening Toner 200ml" data-price="₹200" data-description="Pore tightening, Brightens skin, Cools the skin">
+      <img src="cosmetic-images/biotique-images/honey water pore toner.webp" alt="Honey Water Pore Tightening Brightening Toner 200ml">
+      <h3>Honey Water Pore Tightening Brightening Toner 200ml</h3>
+      <p>Pore tightening, Brightens skin, Cools the skin</p>
+      <div class="price">MRP: ₹440</div>
+    </div>
+    <div class="product-item" data-name="Honey Gel Soothe & Nourish Foaming Face Wash" data-price="₹150" data-description="Soothen skin, Soften skin, Gives Nourishment to skin">
+      <img src="cosmetic-images/biotique-images/honey gel facewash.webp" alt="Honey Gel Soothe & Nourish Foaming Face Wash">
+      <h3>Honey Gel Soothe & Nourish Foaming Face Wash</h3>
+      <p>Soothen skin, Soften skin, Gives Nourishment to skin</p>
+      <div class="price">MRP: ₹199</div>
+    </div>
+
+    <div class="product-item" data-name="Papaya Deep Cleanse Face Wash" data-price="₹140" data-description="Helps in de tans, Cleanse pores, Brightens Complexion">
+      <img src="cosmetic-images/biotique-images/papaya deep facewash.webp" alt="Papaya Deep Cleanse Face Wash">
+      <h3>Papaya Deep Cleanse Face Wash</h3>
+      <p>Helps in de tans, Cleanse pores, Brightens Complexion</p>
+      <div class="price">MRP: ₹180</div>
+    </div>
+
+    <div class="product-item" data-name="Fruit Brightening Face Wash" data-price="₹160" data-description="Brightens skin, Soften skin, Dissolve makeup and impurities">
+      <img src="cosmetic-images/biotique-images/fruit brightening facewash.webp" alt="Fruit Brightening Face Wash">
+      <h3>Fruit Brightening Face Wash</h3>
+      <p>Brightens skin, Soften skin, Dissolve makeup and impurities</p>
+      <div class="price">MRP: ₹250</div>
+    </div>
+
+    <div class="product-item" data-name="Fresh Neem Pimple Control Face Wash" data-price="₹170" data-description="Prevents Pimples, Dissolve makeup, Helps in purifies pores">
+      <img src="cosmetic-images/biotique-images/fresh neem facewash.webp" alt="Fresh Neem Pimple Control Face Wash">
+      <h3>Fresh Neem Pimple Control Face Wash</h3>
+      <p>Prevents Pimples, Dissolve makeup, Helps in purifies pores</p>
+      <div class="price">MRP: ₹165</div>
+    </div>
+
+    <div class="product-item" data-name="Morning Nectar Moisturize & Nourish Face Wash" data-price="₹180" data-description="Helps in moisturizing skin, Gives Nourishment to skin, Gives brightening skin">
+      <img src="cosmetic-images/biotique-images/morning nectar facewash.webp" alt="Morning Nectar Moisturize & Nourish Face Wash">
+      <h3>Morning Nectar Moisturize & Nourish Face Wash</h3>
+      <p>Helps in moisturizing skin, Gives Nourishment to skin, Gives brightening skin</p>
+      <div class="price">MRP: ₹199</div>
+    </div>
+
+    <div class="product-item" data-name="Pineapple Oil Control Foaming Face Wash" data-price="₹175" data-description="Oil control, Remove excess oil, Softens Skin">
+      <img src="cosmetic-images/biotique-images/pineapple oil control facewash.webp" alt="Pineapple Oil Control Foaming Face Wash">
+      <h3>Pineapple Oil Control Foaming Face Wash</h3>
+      <p>Oil control, Remove excess oil, Softens Skin</p>
+      <div class="price">MRP: ₹79</div>
+    </div>
+    <div class="product-item" data-name="Biotique Magikajal (Intense Black 010) 3g" data-price="₹120" data-description="Waterproof & Smudge-Free, Made From Natural Ingredients">
+      <img src="cosmetic-images/biotique-images/magikajal.webp" alt="Biotique Magikajal (Intense Black 010) 3g">
+      <h3>Biotique Magikajal (Intense Black 010) 3g</h3>
+      <p>Waterproof & Smudge-Free, Made From Natural Ingredients</p>
+      <div class="price">MRP: ₹150</div>
+    </div>
+    <div class="product-item" data-name="Biotique Herbcolor" data-price="₹250" data-description="100% grey cover, Natural and healthy shine, Helps in silken hair">
+      <img src="cosmetic-images/biotique-images/herbcolor color.webp" alt="Biotique Herbcolor">
+      <h3>Biotique Herbcolor</h3>
+      <p>100% grey cover, Natural and healthy shine, Helps in silken hair</p>
+      <div class="price">MRP: ₹375</div>
+    </div>
+    <div class="product-item" data-name="Almond Oil Ultra Rich Body Wash" data-price="₹220" data-description="Clears out clogged pores, Reduces dark spots, Promotes even skin tone">
+      <img src="cosmetic-images/biotique-images/almond oil ultra rich body wash.webp" alt="Almond Oil Ultra Rich Body Wash">
+      <h3>Almond Oil Ultra Rich Body Wash</h3>
+      <p>Clears out clogged pores, Reduces dark spots, Promotes even skin tone</p>
+      <div class="price">MRP: ₹220</div>
+    </div>
+
+    <div class="product-item" data-name="Biotique Ubtan & Collagen Body Wash 200ml" data-price="₹210" data-description="">
+      <img src="cosmetic-images/biotique-images/ubtan&collagen body wash.webp" alt="Biotique Ubtan & Collagen Body Wash 200ml">
+      <h3>Biotique Ubtan & Collagen Body Wash 200ml</h3>
+      <p></p>
+      <div class="price">MRP: ₹235</div>
+    </div>
+
+    <div class="product-item" data-name="Basil & Parsley Revitalizing Body Wash" data-price="₹200" data-description="Soften skin, Natural brightness, Deeply cleanse">
+      <img src="cosmetic-images/biotique-images/basil & parsley body wash.webp" alt="Basil & Parsley Revitalizing Body Wash">
+      <h3>Basil & Parsley Revitalizing Body Wash</h3>
+      <p>Soften skin, Natural brightness, Deeply cleanse</p>
+      <div class="price">MRP: ₹220</div>
+    </div>
+
+    <div class="product-item" data-name="Apricot Refreshing Body Wash" data-price="₹190" data-description="Softens skin, Gives Refreshing skin, Natural brightness">
+      <img src="cosmetic-images/biotique-images/apricot refreshing body wash.webp" alt="Apricot Refreshing Body Wash">
+      <h3>Apricot Refreshing Body Wash</h3>
+      <p>Softens skin, Gives Refreshing skin, Natural brightness</p>
+      <div class="price">MRP: ₹190</div>
+    </div>
+
+  </div>
+</div>
+  </section>
+  <section id="Cetaphil-Products" class="brand-section">
+    <h2>Cetaphil Products</h2>
+  
+    <div class="product-grid">
+      <div class="product-item" data-name="Cetaphil Gentle Skin Cleanser" data-price="₹305" data-description="Mild, non-irritating formula, Softens and cleanses, Suitable for all skin types">
+        <img src="cosmetic-images/Cetaphil-image/Gental skin cleanser.webp" alt="Cetaphil Gentle Skin Cleanser">
+        <h3>Cetaphil Gentle Skin Cleanser</h3>
+        <p>Mild, non-irritating formula, Softens and cleanses, Suitable for all skin types</p>
+        <div class="price">MRP: ₹634</div>
+      </div>
+  
+      <div class="product-item" data-name="Cetaphil Oily Skin Cleanser" data-price="₹550" data-description="Removes excess oil, Non-comedogenic, Ideal for oily and acne-prone skin">
+        <img src="cosmetic-images/Cetaphil-image/oily skin cleanser.jpg" alt="Cetaphil Oily Skin Cleanser">
+        <h3>Cetaphil Oily Skin Cleanser</h3>
+        <p>Removes excess oil, Non-comedogenic, Ideal for oily and acne-prone skin</p>
+        <div class="price">MRP: ₹699</div>
+      </div>
+  
+      <div class="product-item" data-name="Cetaphil Moisturising Lotion" data-price="₹430" data-description="Lightweight hydration, Non-greasy, Suitable for face and body">
+        <img src="cosmetic-images/Cetaphil-image/moisturising lotion.jpg" alt="Cetaphil Moisturising Lotion">
+        <h3>Cetaphil Moisturising Lotion</h3>
+        <p>Lightweight hydration, Non-greasy, Suitable for face and body</p>
+        <div class="price">MRP: ₹620</div>
+      </div>
+  
+      <div class="product-item" data-name="Cetaphil DailyAdvance Ultra Hydrating Lotion" data-price="₹520" data-description="Provides intense hydration, Long-lasting moisture, Suitable for dry to very dry skin">
+        <img src="cosmetic-images/Cetaphil-image/daily advance ultra hydrating lotion.webp" alt="Cetaphil DailyAdvance Ultra Hydrating Lotion">
+        <h3>Cetaphil DailyAdvance Ultra Hydrating Lotion</h3>
+        <p>Provides intense hydration, Long-lasting moisture, Suitable for dry to very dry skin</p>
+        <div class="price">MRP: ₹649</div>
+      </div>
+  
+      <div class="product-item" data-name="Cetaphil Moisturising Cream" data-price="₹645" data-description="Rich, non-greasy formula, Provides intense moisture, Ideal for dry and sensitive skin">
+        <img src="cosmetic-images/Cetaphil-image/moisturising cream.webp" alt="Cetaphil Moisturising Cream">
+        <h3>Cetaphil Moisturising Cream</h3>
+        <p>Rich, non-greasy formula, Provides intense moisture, Ideal for dry and sensitive skin</p>
+        <div class="price">MRP: ₹669</div>
+      </div>
+    </div>
+  </section>
+  <section id="Ponds-Products" class="brand-section">
+    <h2>PONDS Products</h2>
+  
+    <div class="product-grid">
+      <div class="product-item" data-name="Pond's Triple Vitamin Body Lotion" data-price="₹275" data-description="Deep nourishment, Smooth and soft skin, With Vitamins B3, E & C">
+        <img src="cosmetic-images/Ponds-images/ponds triple vitamin moisturising body lotion.jpg" alt="Pond's Triple Vitamin Body Lotion">
+        <h3>Pond's Triple Vitamin Body Lotion</h3>
+        <p>Deep nourishment, Smooth and soft skin, With Vitamins B3, E & C</p>
+        <div class="price">MRP: ₹379</div>
+      </div>
+      <div class="product-item" data-name="Pond's Youth Miracle Day Cream" data-price="₹495" data-description="Anti-aging formula, Reduces wrinkles, Provides youthful glow">
+        <img src="cosmetic-images/Ponds-images/youth miracle day cream.jpg" alt="Pond's Youth Miracle Day Cream">
+        <h3>Pond's Youth Miracle Day Cream</h3>
+        <p>Anti-aging formula, Reduces wrinkles, Provides youthful glow</p>
+        <div class="price">MRP: ₹599</div>
+      </div>
+      <div class="product-item" data-name="Pond's Youth Miracle Night Cream" data-price="₹515" data-description="Repairs skin overnight, Reduces signs of aging, Nourishes deeply">
+        <img src="cosmetic-images/Ponds-images/youth miracle night cream.jpg" alt="Pond's Youth Miracle Night Cream">
+        <h3>Pond's Youth Miracle Night Cream</h3>
+        <p>Repairs skin overnight, Reduces signs of aging, Nourishes deeply</p>
+        <div class="price">MRP: ₹849</div>
+      </div>
+      <div class="product-item" data-name="Pond's Retinol Bakuchiol Serum" data-price="₹799" data-description="Brightens skin, Reduces wrinkles, Combines retinol & bakuchiol">
+        <img src="cosmetic-images/Ponds-images/retinol serum.webp" alt="Pond's Retinol Bakuchiol Serum">
+        <h3>Pond's Retinol Bakuchiol Serum</h3>
+        <p>Brightens skin, Reduces wrinkles, Combines retinol & bakuchiol</p>
+        <div class="price">MRP: ₹849</div>
+      </div>
+      <div class="product-item" data-name="Pond's Youthfud Facewash" data-price="₹150" data-description="Gentle cleansing, Removes dirt and impurities, Refreshing formula">
+        <img src="cosmetic-images/ponds-images/youthful facewash.jpg" alt="Pond's Youthfud Facewash">
+        <h3>Pond's Youthfud Facewash</h3>
+        <p>Gentle cleansing, Removes dirt and impurities, Refreshing formula</p>
+        <div class="price">MRP: ₹399</div>
+      </div>
+      <div class="product-item" data-name="Pond's Bright Miracle Facewash" data-price="₹190" data-description="Brightens skin, Removes dullness, Gentle formula">
+        <img src="cosmetic-images/ponds-images/bright miracle.jpg" alt="Pond's Bright Miracle Facewash">
+        <h3>Pond's Bright Miracle Facewash</h3>
+        <p>Brightens skin, Removes dullness, Gentle formula</p>
+        <div class="price">MRP: ₹450</div>
+      </div>
+      <div class="product-item" data-name="Pond's Bright Beauty Facewash" data-price="₹175" data-description="Removes dullness, Brightens skin, Gentle on skin">
+        <img src="cosmetic-images/ponds-images/bright beauty facewash.webp" alt="Pond's Bright Beauty Facewash">
+        <h3>Pond's Bright Beauty Facewash</h3>
+        <p>Removes dullness, Brightens skin, Gentle on skin</p>
+        <div class="price">MRP: ₹180</div>
+      </div>
+      <div class="product-item" data-name="Pond's Bright Beauty Gel Cream" data-price="₹320" data-description="Brightens skin, Lightweight gel formula, Provides long-lasting hydration">
+        <img src="cosmetic-images/ponds-images/bright beauty gel cream.webp" alt="Pond's Bright Beauty Gel Cream">
+        <h3>Pond's Bright Beauty Gel Cream</h3>
+        <p>Brightens skin, Lightweight gel formula, Provides long-lasting hydration</p>
+        <div class="price">MRP: ₹339</div>
+      </div>
+      
+      <div class="product-item" data-name="Pond's Bright Beauty Serum Cream" data-price="₹350" data-description="Brightens skin, Deep hydration, Lightweight serum cream formula">
+        <img src="cosmetic-images/ponds-images/serum cream.jpg" alt="Pond's Bright Beauty Serum Cream">
+        <h3>Pond's Bright Beauty Serum Cream</h3>
+        <p>Brightens skin, Deep hydration, Lightweight serum cream formula</p>
+        <div class="price">MRP: ₹299</div>
+      </div>
+      <div class="product-item" data-name="Pond's Super Light Gel" data-price="₹290" data-description="Lightweight, non-greasy gel, Refreshes and hydrates skin">
+        <img src="cosmetic-images/ponds-images/super light gel.jpg" alt="Pond's Super Light Gel">
+        <h3>Pond's Super Light Gel</h3>
+        <p>Lightweight, non-greasy gel, Refreshes and hydrates skin</p>
+        <div class="price">MRP: ₹259</div>
+      </div>
+      <div class="product-item" data-name="Pond's Light Moisturiser" data-price="₹265" data-description="Lightweight hydration, Non-greasy formula, Suitable for all skin types">
+        <img src="cosmetic-images/ponds-images/light moisturiser.jpg" alt="Pond's Light Moisturiser">
+        <h3>Pond's Light Moisturiser</h3>
+        <p>Lightweight hydration, Non-greasy formula, Suitable for all skin types</p>
+        <div class="price">MRP: ₹489</div>
+      </div>
+      <div class="product-item" data-name="Pond's BB+ Cream" data-price="₹350" data-description="Multi-benefit BB cream, Evens skin tone, Provides natural glow">
+        <img src="cosmetic-images/ponds-images/BB+ cream.jpg" alt="Pond's BB+ Cream">
+        <h3>Pond's BB+ Cream</h3>
+        <p>Multi-benefit BB cream, Evens skin tone, Provides natural glow</p>
+        <div class="price">MRP: ₹275</div>
+      </div>
+      <div class="product-item" data-name="Pond's Dreamflower Powder" data-price="₹220" data-description="Lightweight, smooth finish, Controls shine">
+        <img src="cosmetic-images/ponds-images/Dreamflower powder.jpg" alt="Pond's Dreamflower Powder">
+        <h3>Pond's Dreamflower Powder</h3>
+        <p>Lightweight, smooth finish, Controls shine</p>
+        <div class="price">MRP: ₹65</div>
+      </div>
+      <div class="product-item" data-name="Pond's Magic Powder" data-price="₹200" data-description="Soft matte finish, Controls oil, Long-lasting wear">
+        <img src="cosmetic-images/ponds-images/maagic powder.webp" alt="Pond's Magic Powder">
+        <h3>Pond's Magic Powder</h3>
+        <p>Soft matte finish, Controls oil, Long-lasting wear</p>
+        <div class="price">MRP: ₹65</div>
+      </div>
+      <div class="product-item" data-name="Pond's Sandal Powder" data-price="₹210" data-description="Soothes skin, Refreshes, Natural sandalwood fragrance">
+        <img src="cosmetic-images/ponds-images/sandal powder.webp" alt="Pond's Sandal Powder">
+        <h3>Pond's Sandal Powder</h3>
+        <p>Soothes skin, Refreshes, Natural sandalwood fragrance</p>
+        <div class="price">MRP: ₹75</div>
+      </div>
+      <div class="product-item" data-name="Pond's Aloe Cooling Powder" data-price="₹230" data-description="Soothes and cools skin, Controls oil, Refreshing aloe formula">
+        <img src="cosmetic-images/ponds-images/aloe powder.webp" alt="Pond's Aloe Cooling Powder">
+        <h3>Pond's Aloe Cooling Powder</h3>
+        <p>Soothes and cools skin, Controls oil, Refreshing aloe formula</p>
+        <div class="price">MRP: ₹159</div>
+      </div>
+      
+    </div>
+  </section>
+  <section id="vaseline-Products" class="brand-section">
+    <h2>Vaseline Products</h2>
+  
+    <div class="product-grid">
+      
+      <div class="product-item" data-name="Vaseline Healthy Bright Daily Brightening Lotion" data-price="₹340" data-description="Brightens and hydrates skin, Non-sticky formula, Daily use">
+        <img src="cosmetic-images/Vassiline-image/bright daily brightening body lotion.jpg" alt="Vaseline Healthy Bright Daily Brightening Lotion">
+        <h3>Vaseline Healthy Bright Daily Brightening Lotion</h3>
+        <p>Brightens and hydrates skin, Non-sticky formula, Daily use</p>
+        <div class="price">MRP: ₹195</div>
+      </div>
+  
+      <div class="product-item" data-name="Vaseline Intensive Care Deep Moisture Lotion" data-price="₹345" data-description="Clinically proven moisturization, Deep nourishment, Ideal for dry skin">
+        <img src="cosmetic-images/Vassiline-image/intensive care deep body lotion.jpg" alt="Vaseline Intensive Care Deep Moisture Lotion">
+        <h3>Vaseline Intensive Care Deep Moisture Lotion</h3>
+        <p>Clinically proven moisturization, Deep nourishment, Ideal for dry skin</p>
+        <div class="price">MRP: ₹375</div>
+      </div>
+  
+      <div class="product-item" data-name="Vaseline Gluta-Hya Dewy Radiance Lotion" data-price="₹399" data-description="Gluta-Hya for radiant glow, Deep hydration, Lightweight & fast-absorbing">
+        <img src="cosmetic-images/Vassiline-image/guta hydra.jpeg" alt="Vaseline Gluta-Hya Dewy Radiance Lotion">
+        <h3>Vaseline Gluta-Hya Dewy Radiance Lotion</h3>
+        <p>Gluta-Hya for radiant glow, Deep hydration, Lightweight & fast-absorbing</p>
+        <div class="price">MRP: ₹350</div>
+      </div>
+  
+      <div class="product-item" data-name="Vaseline Serum-In-Lotion" data-price="₹410" data-description="Serum infused hydration, Repairs dry skin, Lightweight formula">
+        <img src="cosmetic-images/Vassiline-image/serum burst lotion.webp" alt="Vaseline Serum-In-Lotion">
+        <h3>Vaseline Serum-In-Lotion</h3>
+        <p>Serum infused hydration, Repairs dry skin, Lightweight formula</p>
+        <div class="price">MRP: ₹350</div>
+      </div>
+  
+      <div class="product-item" data-name="Vaseline Gluta-Hya SPF 50+ PA++++ Lotion" data-price="₹459" data-description="Brightens & protects, Gluta-Hya + SPF 50 PA++++, Lightweight daily sun protection">
+        <img src="cosmetic-images/Vassiline-image/SPA 50+ PA++.jpg" alt="Vaseline Gluta-Hya SPF 50+ PA++++ Lotion">
+        <h3>Vaseline Gluta-Hya SPF 50+ PA++++ Lotion</h3>
+        <p>Brightens & protects, Gluta-Hya + SPF 50 PA++++, Lightweight daily sun protection</p>
+        <div class="price">MRP: ₹699</div>
+      </div>
+  
+      <div class="product-item" data-name="Vaseline Pure Skin Jelly Original" data-price="₹249" data-description="100% pure petroleum jelly, Heals dry skin, Protects and locks in moisture">
+        <img src="cosmetic-images/Vassiline-image/skin jelly.jpg" alt="Vaseline Pure Skin Jelly Original">
+        <h3>Vaseline Pure Skin Jelly Original</h3>
+        <p>100% pure petroleum jelly, Heals dry skin, Protects and locks in moisture</p>
+        <div class="price">MRP: ₹79</div>
+      </div>
+  
+    </div>
+  </section>
+  <section id="himalaya-products" class="brand-section">
+    <h2>Himalaya Products</h2>
+  
+    <div class="product-grid">
+      <div class="product-item" data-name="Himalaya Purifying Neem Face Wash" data-price="₹140" data-description="Removes impurities, Prevents pimples, Neem & turmeric based formula">
+        <img src="cosmetic-images/himalaya-image/purifying fashwash.webp" alt="Himalaya Purifying Neem Face Wash">
+        <h3>Himalaya Purifying Neem Face Wash</h3>
+        <p>Removes impurities, Prevents pimples, Neem & turmeric based formula</p>
+        <div class="price">MRP: ₹179</div>
+      </div>
+      <div class="product-item" data-name="Himalaya Purifying Neem Scrub" data-price="₹160" data-description="Exfoliates dead skin, Helps prevent acne, Neem & apricot formula">
+        <img src="cosmetic-images/himalaya-image/purifying neem scrub.webp" alt="Himalaya Purifying Neem Scrub">
+        <h3>Himalaya Purifying Neem Scrub</h3>
+        <p>Exfoliates dead skin, Helps prevent acne, Neem & apricot formula</p>
+        <div class="price">MRP: ₹175</div>
+      </div>
+      <div class="product-item" data-name="Himalaya Gentle Exfoliating Apricot Scrub" data-price="₹135" data-description="Gently removes dead skin cells, Nourishes with Apricot oil, Suitable for all skin types">
+        <img src="cosmetic-images/himalaya-image/gentle exfoliating scrub.webp" alt="Himalaya Gentle Exfoliating Apricot Scrub">
+        <h3>Himalaya Gentle Exfoliating Apricot Scrub</h3>
+        <p>Gently removes dead skin cells, Nourishes with Apricot oil, Suitable for all skin types</p>
+        <div class="price">MRP: ₹175</div>
+      </div>
+      <div class="product-item" data-name="Himalaya Purifying Neem Pack" data-price="₹150" data-description="Deep cleanses skin, Controls oil and acne, Neem & turmeric based face pack">
+        <img src="cosmetic-images/himalaya-image/neem pack.jpg" alt="Himalaya Purifying Neem Pack">
+        <h3>Himalaya Purifying Neem Pack</h3>
+        <p>Deep cleanses skin, Controls oil and acne, Neem & turmeric based face pack</p>
+        <div class="price">MRP: ₹160</div>
+      </div>
+      
+    </div>
+  </section>
+  
+      
+    
+    
+    
+    
+    
+  </div>
+  
+</div>
+  
+
+
+  
+
+
+     
+
+</div> <!-- End of product-grid -->
+
+<p style="text-align: center; font-size: 1rem; color: #8b0000; margin-top: 2rem;">
+  Many more Products are available at JAIN & SONS store.
+</p>
+
+
+<footer>
+  <p>&copy; 2025 JAIN & SONS. All rights reserved.</p>
+</footer>
+<!--  -->
+
+
+<script>
+  function filterByBrand(brand) {
+    const products = document.querySelectorAll(".product");
+
+    products.forEach(product => {
+      if (brand === "all" || product.dataset.brand === brand) {
+        product.style.display = "block";
+      } else {
+        product.style.display = "none";
+      }
+    });
+  }
+</script>
+
+<script>
+  function filterProducts() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let productGrid = document.getElementById('productGrid');
+    let products = productGrid.getElementsByClassName('product-item');
+
+    for (let i = 0; i < products.length; i++) {
+      let productName = products[i].getAttribute('data-name').toLowerCase();
+      let productDescription = products[i].getAttribute('data-description').toLowerCase();
+      let productPrice = products[i].getAttribute('data-price').toLowerCase();
+      
+      if (productName.includes(input) || productDescription.includes(input) || productPrice.includes(input)) {
+        products[i].style.display = "";
+      } else {
+        products[i].style.display = "none";
+      }
+    }
+  }
+</script>
+
+<!-- filter -->
+<script>
+  const products = document.querySelectorAll('.product-item');
+  const searchBox = document.getElementById('searchBox');
+  const brandCheckboxes = document.querySelectorAll('.filter-group input[type="checkbox"]');
+  const minPriceSlider = document.getElementById('minPrice');
+  const maxPriceSlider = document.getElementById('maxPrice');
+  const minPriceLabel = document.getElementById('minPriceLabel');
+  const maxPriceLabel = document.getElementById('maxPriceLabel');
+  const resultCount = document.getElementById('resultCount');
+
+  // Parse price from product data attribute (₹750 -> 750)
+  function parsePrice(priceStr) {
+    return Number(priceStr.replace(/[₹,]/g, ''));
+  }
+
+  // Update price labels next to sliders
+  function updatePriceLabels() {
+    minPriceLabel.textContent = minPriceSlider.value;
+    maxPriceLabel.textContent = maxPriceSlider.value;
+  }
+
+  // Filter products based on selected filters
+  function applyFilters() {
+    const searchTerm = searchBox.value.toLowerCase();
+    const selectedBrands = Array.from(brandCheckboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value.toLowerCase());
+
+    const minPrice = Number(minPriceSlider.value);
+    const maxPrice = Number(maxPriceSlider.value);
+
+    let visibleCount = 0;
+
+    products.forEach(product => {
+      const name = product.dataset.name.toLowerCase();
+      const description = product.dataset.description.toLowerCase();
+      const price = parsePrice(product.dataset.price);
+      const productBrand = product.querySelector('h3').textContent.toLowerCase();
+
+      // Check brand filter
+      const brandMatch = selectedBrands.length === 0 || selectedBrands.some(brand => productBrand.includes(brand));
+
+      // Check price filter
+      const priceMatch = price >= minPrice && price <= maxPrice;
+
+      // Check search filter (in name or description)
+      const searchMatch = name.includes(searchTerm) || description.includes(searchTerm);
+
+      if (brandMatch && priceMatch && searchMatch) {
+        product.style.display = 'block';
+        visibleCount++;
+      } else {
+        product.style.display = 'none';
+      }
+    });
+
+    resultCount.textContent = visibleCount;
+    updatePriceLabels();
+  }
+
+  // Search input event handler
+  function searchProducts() {
+    applyFilters();
+  }
+
+  // Reset all filters
+  function resetFilters() {
+    searchBox.value = '';
+    brandCheckboxes.forEach(cb => cb.checked = false);
+    minPriceSlider.value = minPriceSlider.min;
+    maxPriceSlider.value = maxPriceSlider.max;
+    applyFilters();
+  }
+
+  // Clear brand filters only
+  function clearBrandFilter() {
+    brandCheckboxes.forEach(cb => cb.checked = false);
+    applyFilters();
+  }
+
+  // Reset price filters only
+  function resetPrice() {
+    minPriceSlider.value = minPriceSlider.min;
+    maxPriceSlider.value = maxPriceSlider.max;
+    applyFilters();
+  }
+
+  // Event listeners for filters
+  brandCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+  minPriceSlider.addEventListener('input', () => {
+    // Prevent minPrice slider crossing maxPrice slider
+    if (Number(minPriceSlider.value) > Number(maxPriceSlider.value)) {
+      minPriceSlider.value = maxPriceSlider.value;
+    }
+    applyFilters();
+  });
+  maxPriceSlider.addEventListener('input', () => {
+    // Prevent maxPrice slider crossing minPrice slider
+    if (Number(maxPriceSlider.value) < Number(minPriceSlider.value)) {
+      maxPriceSlider.value = minPriceSlider.value;
+    }
+    applyFilters();
+  });
+
+  // Initial filter on page load
+  window.onload = () => {
+    applyFilters();
+  };
+</script>
+
+  
+</body>
+</html>

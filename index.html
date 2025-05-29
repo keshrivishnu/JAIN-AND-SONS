@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- //////// -->
+
+  
+  
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JAIN & SONS - Bangles Collection</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    header {
+      background-color: #8b0000;
+      color: white;
+      padding: 1rem 2rem;
+      position: relative;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo-title img {
+      height: 100px;
+    }
+
+    .title-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .site-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .subtext {
+      font-size: 1rem;
+      letter-spacing: 1px;
+      margin-top: 0.2rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: #f8f8f8;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .category {
+      text-align: center;
+    }
+
+    .category img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+    }
+
+    .product-categories {
+      padding: 3rem 2rem;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #8b0000;
+    }
+
+    .categories-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .category-item {
+      width: 200px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .category-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .category-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .category-item h3 {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    footer {
+      background-color: #8b0000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        background-color: #8b0000;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      nav a {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+      }
+
+      .logo-title {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .title-container {
+        position: static;
+        transform: none;
+      }
+
+      #userInfo {
+        margin: 1rem 0 0;
+        justify-content: center;
+      }
+    }
+
+    #userInfo {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    .user-initial {
+      width: 32px;
+      height: 32px;
+      border: 2px solid white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      background: transparent;
+    }
+
+    .user-name {
+      font-size: 1rem;
+    }
+
+    #logoutDropdown {
+      display: none;
+      position: absolute;
+      top: 35px;
+      right: 0;
+      background: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      color: red;
+      font-weight: bold;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      cursor: pointer;
+    }
+
+    #userInfo:hover #logoutDropdown {
+      display: block;
+    }
+    
+
+    .launching-soon-wrapper {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #800000;
+  margin-bottom: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.typing-text::after {
+  content: '|';
+  animation: blinkCursor 0.8s infinite;
+  margin-left: 5px;
+  color: #800000;
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <div class="logo-title">
+        <img src="JAIN AND SONS new logo.png" alt="Logo">
+      </div>
+
+      <div class="title-container">
+        <h1 class="site-title">JAIN & SONS</h1>
+        <div class="subtext">BORING ROAD PATNA</div>
+      </div>
+
+      <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+
+      <nav id="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button onclick="window.location.href='register.html'" style="padding: 0.4rem 1rem; font-size: 1rem; background-color: white; color: #8b0000; font-weight: 600; border: 2px solid #8b0000; border-radius: 6px; cursor: pointer;">
+          Sign Up
+        </button>
+        <div id="userInfo">
+          <!-- User info will be dynamically added here -->
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="launching-soon-wrapper">
+      <span class="launching-text">🚀</span>
+      <span class="typing-text"></span>
+    </div>
+    
+
+    <h2>Explore Our Elegant Bangles Collection</h2>
+    <p>Browse by category to find your perfect style</p>
+  </section>
+
+  <section class="categories">
+    <div class="category">
+      <img src="categories/lakh bangle.png" alt="Lakh Bangles">
+      <h3><a href="categories/Lakh.html">Lakh Bangles</a></h3>
+    </div>
+    <div class="category">
+      <img src="categories/metal bangle logo.png" alt="Metal Bangles">
+      <h3><a href="categories/bridal.html">Metal Bangles</a></h3>
+    </div>
+    <div class="category">
+      <img src="categories/glass bangle logo.png" alt="Glass Bangles">
+      <h3><a href="categories/glass.html">Glass Bangles</a></h3>
+    </div>
+  </section>
+
+  <section class="product-categories">
+    <h2 class="section-title">Our Categories</h2>
+    <div class="categories-list">
+      <div class="category-item">
+        <a href="categories/cosmetic.html" style="text-decoration: none; color: inherit;">
+          <img src="categories/cosmetics logo.png" alt="Cosmetic">
+          <h3>Cosmetics</h3>
+        </a>
+      </div>
+
+      <div class="category-item">
+        <a href="categories/hairass.html" style="text-decoration: none; color: inherit;">
+        <img src="categories/hair acc logo.png" alt="Hair Accessories">
+        <h3>Hair Accessories</h3>
+        </a>
+      </div>
+
+      <div class="category-item">
+        <img src="categories/artificial jwell.png" alt="Artificial Category">
+        <h3>Artificial Jewellery</h3>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 JAIN & SONS. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      var nav = document.getElementById("nav-menu");
+      nav.classList.toggle("show");
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const userInfoDiv = document.getElementById('userInfo');
+      const signUpButton = document.querySelector('nav button');
+
+      if (user) {
+        const initial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+        const displayName = user.name.toUpperCase();
+
+        userInfoDiv.innerHTML = ` 
+          <div class="user-initial">${initial}</div>
+          <span class="user-name">Hi, ${displayName}</span>
+          <div id="logoutDropdown" onclick="logout()">LOG OUT</div>
+        `;
+
+        if (signUpButton) signUpButton.style.display = 'none';
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem('user');
+      window.location.reload();
+    }
+  </script>
+
+
+<script>
+  const text = "Launching Soon...";
+  const typingElement = document.querySelector(".typing-text");
+  let i = 0;
+
+  function typeText() {
+    if (i < text.length) {
+      typingElement.textContent += text.charAt(i);
+      i++;
+      setTimeout(typeText, 150); // typing speed
+    } else {
+      setTimeout(() => {
+        typingElement.textContent = "";
+        i = 0;
+        typeText();
+      }, 2000); // restart after delay
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", typeText);
+</script>
+
+
+
+
+</body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBWWnCwcdy02WaZpbNSsgj0fznVgp40aOM",
+    authDomain: "jainandsons-3b31c.firebaseapp.com",
+    projectId: "jainandsons-3b31c",
+    appId: "1:760950586458:web:f881c10ce848fa5c372c63"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Run after page load
+  window.addEventListener('DOMContentLoaded', () => {
+    const localUser = localStorage.getItem('user');
+
+    // 1️⃣ If user already saved in localStorage -> show user info
+    if (localUser) {
+      showUserInfo(JSON.parse(localUser));
+      return;
+    }
+
+    // 2️⃣ Else, check Firebase auth status
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userData = {
+          name: user.displayName || "User",
+          email: user.email || ""
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
+        showUserInfo(userData);
+      } else {
+        // ❌ Not logged in → redirect after 5 sec
+        setTimeout(() => {
+          window.location.href = "register.html";
+        }, 2000);
+      }
+    });
+  });
+
+  function showUserInfo(user) {
+    const userInfoDiv = document.getElementById('userInfo');
+    const signUpButton = document.querySelector('nav button');
+    const initial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+    const displayName = user.name.toUpperCase();
+
+    if (signUpButton) signUpButton.style.display = 'none';
+
+    userInfoDiv.innerHTML = ` 
+      <div class="user-initial">${initial}</div>
+      <span class="user-name">Hi, ${displayName}</span>
+      <div id="logoutDropdown" onclick="logout()">LOG OUT</div>
+    `;
+  }
+
+  window.logout = function () {
+  import("https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js").then(({ getAuth, signOut }) => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      localStorage.removeItem('user');
+      location.reload();
+    }).catch((error) => {
+      console.error("Sign-out error:", error);
+    });
+  });
+};
+
+</script>
+
+
+
+</html>
