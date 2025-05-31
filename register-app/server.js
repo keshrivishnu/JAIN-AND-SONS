@@ -55,7 +55,7 @@ app.use((req, res, next) => {
 });
 
 // ✅ Firebase Admin Initialization
-const serviceAccount = require("C:\\Users\\vishn\\Desktop\\JAIN AND SONS\\config\\jainandsons-3b31c-firebase-adminsdk-fbsvc-94984c74b2.json");
+const serviceAccount = require("C:\\Users\\vishn\\Desktop\\JAIN AND SONS\\config\\configprivate.json");
 
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(serviceAccount),

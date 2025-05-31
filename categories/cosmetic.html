@@ -191,37 +191,7 @@
   </div>
 </header>
 <div class="main-container">
-<aside class="filter-sidebar">
 
-  <input type="text" id="searchBox" placeholder="Search here..." oninput="searchProducts()">
-
-  <div class="results-info">
-    Showing <span id="resultCount">0</span> results.
-    <span class="reset" onclick="resetFilters()">Reset All</span>
-  </div>
-
-  <div class="filter-group">
-    <div class="filter-header">
-      <strong>Makes</strong>
-      <span class="clear" onclick="clearBrandFilter()">Clear</span>
-    </div>
-    <label><input type="checkbox" value="lakme" onchange="applyFilters()"> Lakme</label>
-    <label><input type="checkbox" value="maybelline" onchange="applyFilters()"> Maybelline</label>
-    <label><input type="checkbox" value="biotique" onchange="applyFilters()">Biotique</label>
-  </div>
-
-  <div class="filter-group">
-    <div class="filter-header">
-      <strong>Price</strong>
-      <span class="clear" onclick="resetPrice()">Clear</span>
-    </div>
-    <input type="range" id="minPrice" min="0" max="5000" value="0" oninput="applyFilters()">
-    <input type="range" id="maxPrice" min="0" max="5000" value="5000" oninput="applyFilters()">
-    <div class="price-range">
-      ₹<span id="minPriceLabel">0</span> - ₹<span id="maxPriceLabel">5000</span>
-    </div>
-  </div>
-    </aside>
 
 
 
