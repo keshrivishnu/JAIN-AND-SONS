@@ -179,7 +179,7 @@ app.post('/update-profile', async (req, res) => {
 
 // ✅ Enable CORS for frontend
 app.use(cors({
-    origin: 'http://127.0.0.1:5500',
+    origin: 'https://jain-and-sons-4sr1.vercel.app',
     credentials: true
   }));
   
