@@ -182,16 +182,7 @@ const allowedOrigins = [
    'https://jain-and-sons-4sr1-oquhu39yo-keshrivishnus-projects.vercel.app'
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
+
 
   
   // ✅ Parse JSON
