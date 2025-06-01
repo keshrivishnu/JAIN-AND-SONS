@@ -177,11 +177,22 @@ app.post('/update-profile', async (req, res) => {
 // ////////////////
 
 
-// ✅ Enable CORS for frontend
+const allowedOrigins = [
+  'http://127.0.0.1:5500',
+  'https://jain-and-sons-4sr1.vercel.app'
+];
+
 app.use(cors({
-    origin: 'https://jain-and-sons-4sr1.vercel.app',
-    credentials: true
-  }));
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
   
   // ✅ Parse JSON
   app.use(express.json());
