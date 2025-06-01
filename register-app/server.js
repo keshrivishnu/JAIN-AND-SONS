@@ -179,8 +179,27 @@ app.post('/update-profile', async (req, res) => {
 
 const allowedOrigins = [
   'http://127.0.0.1:5500',
-   'https://jain-and-sons-4sr1-oquhu39yo-keshrivishnus-projects.vercel.app'
+  'https://jain-and-sons-4sr1.vercel.app'  // Your production domain
 ];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow localhost and production
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    }
+    // Allow preview deployments like:
+    // https://jain-and-sons-4sr1-xyz123.vercel.app
+    else if (origin.startsWith('https://jain-and-sons-4sr1-') && origin.endsWith('.vercel.app')) {
+      callback(null, true);
+    }
+    else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 
 
 

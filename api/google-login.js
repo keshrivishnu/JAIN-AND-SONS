@@ -1,12 +1,9 @@
-const allowedOrigins = [
-    'https://jain-and-sons-4sr1.vercel.app',
-    'https://jain-and-sons-4sr1-d5feock3a-keshrivishnus-projects.vercel.app'
-  ];
-  
-  export default async function handler(req, res) {
+export default async function handler(req, res) {
     const origin = req.headers.origin;
+    const baseDomain = "https://jain-and-sons-4sr1";
   
-    if (allowedOrigins.includes(origin)) {
+    // ✅ Allow the base domain and any preview domain under the same project
+    if (origin && origin.startsWith(baseDomain)) {
       res.setHeader("Access-Control-Allow-Origin", origin);
     }
   
