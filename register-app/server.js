@@ -179,7 +179,7 @@ app.post('/update-profile', async (req, res) => {
 
 const allowedOrigins = [
   'http://127.0.0.1:5500',
-  'https://jain-and-sons-4sr1.vercel.app'
+   'https://jain-and-sons-4sr1-oquhu39yo-keshrivishnus-projects.vercel.app'
 ];
 
 app.use(cors({
