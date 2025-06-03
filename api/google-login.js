@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const origin = req.headers.origin;
 
-  // ✅ Allow requests from any vercel.app subdomain (preview + production)
+  // ✅ Dynamically allow Vercel preview and production frontend URLs
   if (origin && origin.endsWith('.vercel.app')) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  // ✅ Handle CORS preflight
+  // ✅ Handle preflight CORS requests
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -23,10 +23,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Missing token' });
     }
 
-    // ✅ Optional: You can verify the token here using Firebase Admin SDK
-    // For example:
-    // const decodedToken = await admin.auth().verifyIdToken(idToken);
-
     return res.status(200).json({ message: 'Login successful' });
   } catch (err) {
     console.error("Error parsing request:", err);
@@ -34,7 +30,6 @@ export default async function handler(req, res) {
   }
 }
 
-// 🔧 Helper to parse raw body manually (Vercel doesn't auto-parse JSON)
 async function getBody(req) {
   return new Promise((resolve, reject) => {
     let data = '';
