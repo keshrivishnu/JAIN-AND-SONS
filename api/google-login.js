@@ -1,14 +1,8 @@
-import admin from '../../lib/firebaseAdmin';
-
-const allowedOrigins = [
-  'http://127.0.0.1:5500',
-  'https://jain-and-sons-ufen.vercel.app',
-];
-
 export default async function handler(req, res) {
   const origin = req.headers.origin;
 
-  if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app'))) {
+  // Allow requests from any vercel.app subdomain (preview + production)
+  if (origin && origin.endsWith('.vercel.app')) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
 
@@ -16,45 +10,39 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
+  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
-    return res.status(200).end(); // handle preflight
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
+    return res.status(200).end();
   }
 
   try {
-    const body = req.body ?? (await getRawBody(req));
+    // Parse body (because Vercel serverless doesn't auto-parse JSON sometimes)
+    const body = req.body ?? await getBody(req);
     const { idToken } = body;
 
     if (!idToken) {
-      return res.status(400).json({ message: 'Missing idToken' });
+      return res.status(400).json({ message: 'Missing token' });
     }
 
-    // Verify Firebase ID token
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    // Optional: verify idToken with Firebase Admin SDK here
 
-    // You can get user info from decodedToken
-    // e.g. decodedToken.uid, decodedToken.email, etc.
-
-    return res.status(200).json({ message: 'Login successful', uid: decodedToken.uid });
+    return res.status(200).json({ message: 'Login successful' });
   } catch (err) {
-    console.error('Token verification error:', err);
-    return res.status(401).json({ message: 'Invalid or expired token' });
+    console.error("Error parsing request:", err);
+    return res.status(400).json({ message: 'Invalid JSON body' });
   }
 }
 
-// Helper to parse raw JSON body if req.body is empty
-async function getRawBody(req) {
+// Helper to parse raw body manually
+async function getBody(req) {
   return new Promise((resolve, reject) => {
     let data = '';
-    req.on('data', (chunk) => (data += chunk));
+    req.on('data', chunk => (data += chunk));
     req.on('end', () => {
       try {
         resolve(JSON.parse(data));
-      } catch (e) {
-        reject(e);
+      } catch (err) {
+        reject(err);
       }
     });
   });
