@@ -186,7 +186,7 @@
       signInWithPopup(auth, provider)
         .then((result) => {
           result.user.getIdToken().then((idToken) => {
-            fetch('https://jain-and-sons-api.vercel.app/api/google-login.js', {
+            fetch('https://jain-and-sons-api.vercel.app/api/google-login', {
               method: 'POST',
               credentials: 'include',
               headers: { 'Content-Type': 'application/json' },

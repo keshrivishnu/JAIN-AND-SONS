@@ -1,9 +1,6 @@
-// api/google-login.js
-
 export default async function handler(req, res) {
   const origin = req.headers.origin;
 
-  // ✅ Allow any Vercel preview or production deployment
   if (origin && origin.endsWith('.vercel.app')) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
@@ -16,11 +13,23 @@ export default async function handler(req, res) {
     return res.status(200).end(); // Preflight response
   }
 
-  const { idToken } = req.body;
+  let body = '';
 
-  if (!idToken) {
-    return res.status(400).json({ message: 'Missing token' });
-  }
+  // Collect and parse body (for serverless function)
+  req.on('data', chunk => {
+    body += chunk.toString();
+  });
 
-  return res.status(200).json({ message: 'Login successful' });
+  req.on('end', () => {
+    try {
+      const { idToken } = JSON.parse(body);
+      if (!idToken) {
+        return res.status(400).json({ message: 'Missing token' });
+      }
+
+      return res.status(200).json({ message: 'Login successful' });
+    } catch (err) {
+      return res.status(400).json({ message: 'Invalid JSON body' });
+    }
+  });
 }
