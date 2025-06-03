@@ -183,17 +183,18 @@
     // ✅ Google login when clicking link
     document.getElementById("googleLoginLink").addEventListener("click", (e) => {
   e.preventDefault();
+
   signInWithPopup(auth, provider)
     .then((result) => {
       result.user.getIdToken().then((idToken) => {
         const { displayName: name, email } = result.user;
-        const phone = ""; // Firebase may not provide phone
+        const phone = ""; // Firebase doesn't always provide phone
 
-        fetch('https://jain-and-sons-api.vercel.app/google-login', {
+        fetch('https://jain-and-sons-api.vercel.app/api/google-login', {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idToken }),
+          body: JSON.stringify({ idToken })
         })
           .then(response => response.json())
           .then(data => {
