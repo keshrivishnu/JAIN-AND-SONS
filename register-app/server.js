@@ -177,28 +177,27 @@ app.post('/update-profile', async (req, res) => {
 // ////////////////
 
 
-const allowedOrigins = [
-  'http://127.0.0.1:5500',
-  'https://jain-and-sons-4sr1.vercel.app'  // Your production domain
-];
+const cors = require('cors');
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow localhost and production
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
+    if (!origin) {
+      return callback(null, true); // allow non-browser requests like Postman
     }
-    // Allow preview deployments like:
-    // https://jain-and-sons-4sr1-xyz123.vercel.app
-    else if (origin.startsWith('https://jain-and-sons-4sr1-') && origin.endsWith('.vercel.app')) {
-      callback(null, true);
+
+    if (
+      origin === 'http://127.0.0.1:5500' ||
+      origin === 'https://jain-and-sons-ufen.vercel.app' || // your main production site
+      origin.endsWith('.vercel.app') // allow Vercel preview deploys
+    ) {
+      return callback(null, true);
     }
-    else {
-      callback(new Error('Not allowed by CORS'));
-    }
+
+    return callback(new Error('Not allowed by CORS'));
   },
   credentials: true
 }));
+
 
 
 

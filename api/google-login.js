@@ -13,23 +13,33 @@ export default async function handler(req, res) {
     return res.status(200).end(); // Preflight response
   }
 
-  let body = '';
+  try {
+    const body = req.body ?? await getBody(req);
+    const { idToken } = body;
 
-  // Collect and parse body (for serverless function)
-  req.on('data', chunk => {
-    body += chunk.toString();
-  });
-
-  req.on('end', () => {
-    try {
-      const { idToken } = JSON.parse(body);
-      if (!idToken) {
-        return res.status(400).json({ message: 'Missing token' });
-      }
-
-      return res.status(200).json({ message: 'Login successful' });
-    } catch (err) {
-      return res.status(400).json({ message: 'Invalid JSON body' });
+    if (!idToken) {
+      return res.status(400).json({ message: 'Missing token' });
     }
+
+    // Optionally verify token with Firebase here...
+
+    return res.status(200).json({ message: 'Login successful' });
+  } catch (err) {
+    return res.status(400).json({ message: 'Invalid JSON body' });
+  }
+}
+
+// Helper to parse raw body
+async function getBody(req) {
+  return new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', chunk => (data += chunk));
+    req.on('end', () => {
+      try {
+        resolve(JSON.parse(data));
+      } catch (err) {
+        reject(err);
+      }
+    });
   });
 }

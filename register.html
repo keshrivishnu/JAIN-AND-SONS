@@ -182,36 +182,39 @@
 
     // ✅ Google login when clicking link
     document.getElementById("googleLoginLink").addEventListener("click", (e) => {
-      e.preventDefault();
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          result.user.getIdToken().then((idToken) => {
-            fetch('https://jain-and-sons-api.vercel.app/api/google-login', {
-              method: 'POST',
-              credentials: 'include',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ idToken }),
-            })
-            .then(response => response.json())
-            .then(data => {
-              if (data.message === 'Login successful') {
-                localStorage.setItem('user', JSON.stringify({ name, email, phone }));
-                window.location.href = "index.html";
+  e.preventDefault();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      result.user.getIdToken().then((idToken) => {
+        const { displayName: name, email } = result.user;
+        const phone = ""; // Firebase may not provide phone
 
-              } else {
-                document.getElementById("accessDenialMessage").style.display = "block";
-              }
-            })
-            .catch(error => {
-              console.error("Error during login:", error);
-              document.getElementById("accessDenialMessage").style.display = "block";
-            });
-          });
+        fetch('https://jain-and-sons-api.vercel.app/google-login', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken }),
         })
-        .catch((error) => {
-          alert("Login failed: " + error.message);
-        });
+          .then(response => response.json())
+          .then(data => {
+            if (data.message === 'Login successful') {
+              localStorage.setItem('user', JSON.stringify({ name, email, phone }));
+              window.location.href = "index.html";
+            } else {
+              document.getElementById("accessDenialMessage").style.display = "block";
+            }
+          })
+          .catch(error => {
+            console.error("Error during login:", error);
+            document.getElementById("accessDenialMessage").style.display = "block";
+          });
+      });
+    })
+    .catch((error) => {
+      alert("Login failed: " + error.message);
     });
+});
+
 
     // Manual form registration
     document.getElementById('registerForm').addEventListener('submit', async function(e) {
