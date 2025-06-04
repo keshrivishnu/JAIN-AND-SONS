@@ -230,9 +230,9 @@ app.post('/google-login', async (req, res) => {
 
     let user = await User.findOne({ email });
     if (!user) {
-      user = new User({ name, email, phone: '' });
-      await user.save();
+      return res.status(403).json({ error: 'Email not registered. Please register first.' });
     }
+    
 
     req.session.user = user;
     res.status(200).json({ message: 'Login successful', redirect: '/home' });
