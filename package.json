@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "firebase": "^11.7.1",
     "firebase-admin": "^13.3.0",
