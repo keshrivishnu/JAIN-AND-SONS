@@ -1,13 +1,20 @@
 exports.handler = async (event, context) => {
     const origin = event.headers.origin;
   
-    if (!origin || origin === 'http://127.0.0.1:5500' ||
-        origin === 'https://polite-klepon-205471.netlify.app' ||
-        origin.endsWith('.vercel.app')) {
-      // OK
+    const allowedOrigins = [
+      'http://127.0.0.1:5500',
+      'https://polite-klepon-205471.netlify.app'
+    ];
+  
+    if (!origin || allowedOrigins.includes(origin)) {
+      // continue
     } else {
       return {
         statusCode: 403,
+        headers: {
+          'Access-Control-Allow-Origin': origin || '*',
+          'Access-Control-Allow-Credentials': 'true',
+        },
         body: JSON.stringify({ message: 'CORS policy does not allow access from your origin.' }),
       };
     }
@@ -32,6 +39,10 @@ exports.handler = async (event, context) => {
       if (!idToken) {
         return {
           statusCode: 400,
+          headers: {
+            'Access-Control-Allow-Origin': origin || '*',
+            'Access-Control-Allow-Credentials': 'true',
+          },
           body: JSON.stringify({ message: 'Missing token' }),
         };
       }
@@ -42,12 +53,16 @@ exports.handler = async (event, context) => {
           'Access-Control-Allow-Origin': origin || '*',
           'Access-Control-Allow-Credentials': 'true',
         },
-        body: JSON.stringify({ message: 'Login successful' }),
+        body: JSON.stringify({ message: 'Login successful' }), // ✅ Valid JSON
       };
     } catch (err) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ message: 'Invalid JSON body' }),
+        headers: {
+          'Access-Control-Allow-Origin': origin || '*',
+          'Access-Control-Allow-Credentials': 'true',
+        },
+        body: JSON.stringify({ message: 'Invalid JSON body' }), // ✅ Valid JSON
       };
     }
   };
