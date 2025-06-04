@@ -242,7 +242,7 @@ app.post('/google-login', async (req, res) => {
   }
 });
 
-// ✅ Check User Before Registering
+// Check user exists
 app.post('/check-user', async (req, res) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ error: "Email is required" });
@@ -256,13 +256,11 @@ app.post('/check-user', async (req, res) => {
   }
 });
 
-// ✅ Catch-All 404
+// Catch-all 404
 app.use('*', (req, res) => {
-    origin: 'http://127.0.0.1:5500', 
-    // credentials: true
-     
   res.status(404).json({ error: 'Route not found' });
 });
+
 
 // ✅ Start Server
 const PORT = process.env.PORT || 3000;
