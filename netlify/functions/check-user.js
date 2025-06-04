@@ -28,7 +28,7 @@ exports.handler = async function(event, context) {
       await cachedClient.connect();
     }
 
-    const db = cachedClient.db('jainandsons'); // Use your actual DB name
+    const db = cachedClient.db('jainandsonsDB'); // Use your actual DB name
     const users = db.collection('users');
 
     const user = await users.findOne({ email });

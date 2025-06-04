@@ -30,7 +30,7 @@ exports.handler = async function(event, context) {
       await cachedClient.connect();
     }
 
-    const db = cachedClient.db("jainandsons"); // Use your DB name
+    const db = cachedClient.db("jainandsonsDB"); // Use your DB name
     const users = db.collection("users");
 
     // Optional: Check if email already exists (for safety)
