@@ -3,7 +3,7 @@ export default async function handler(req, res) {
 
   // Allow non-browser tools (no origin) and specific allowed origins
   if (!origin || origin === 'http://127.0.0.1:5500' ||
-      origin === 'https://jain-and-sons-374p.vercel.app' ||
+      origin === 'https://polite-klepon-205471.netlify.app' ||
       origin.endsWith('.vercel.app')) {
     res.setHeader('Access-Control-Allow-Origin', origin || '*');
   } else {
