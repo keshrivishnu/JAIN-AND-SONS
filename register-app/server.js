@@ -188,7 +188,7 @@ app.use(cors({
 
     if (
       origin === 'http://127.0.0.1:5500' ||
-      origin === 'https://jain-and-sons-ufen.vercel.app' || // your main production site
+      origin === 'https://jain-and-sons-374p.vercel.app' || // your main production site
       origin.endsWith('.vercel.app') // allow Vercel preview deploys
     ) {
       return callback(null, true);
