@@ -258,6 +258,43 @@
         alert('Server error. Please try again later.');
       }
     });
+    const checkUser = async (email) => {
+  const res = await fetch('/.netlify/functions/check-user', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  });
+  const data = await res.json();
+  return data.exists;
+};
+
+document.getElementById('registerForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+
+  const alreadyExists = await checkUser(email);
+  if (alreadyExists) {
+    alert('Email is already registered');
+    return;
+  }
+
+  // Proceed to register
+  const response = await fetch('/.netlify/functions/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, phone })
+  });
+
+  const data = await response.json();
+  if (response.ok) {
+    localStorage.setItem('user', JSON.stringify({ name, email, phone }));
+    window.location.href = "index.html";
+  } else {
+    alert(data.error || 'Registration failed');
+  }
+});
 
     // After successful login (on register.html)
       // localStorage.setItem('user', JSON.stringify({
