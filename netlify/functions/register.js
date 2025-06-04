@@ -28,12 +28,10 @@ exports.handler = async function(event, context) {
     }
 
     if (!cachedClient) {
-      cachedClient = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      });
-      await cachedClient.connect();
-    }
+        cachedClient = new MongoClient(uri);
+        await cachedClient.connect();
+      }
+      
 
     const db = cachedClient.db("jainandsonsDB");
     const users = db.collection("users");
