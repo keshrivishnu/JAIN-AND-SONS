@@ -3,6 +3,8 @@ const { MongoClient } = require('mongodb');
 let cachedClient = null;
 
 exports.handler = async function(event, context) {
+  context.callbackWaitsForEmptyEventLoop = false;
+
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -28,10 +30,9 @@ exports.handler = async function(event, context) {
     }
 
     if (!cachedClient) {
-        cachedClient = new MongoClient(uri);
-        await cachedClient.connect();
-      }
-      
+      cachedClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+      await cachedClient.connect();
+    }
 
     const db = cachedClient.db("jainandsonsDB");
     const users = db.collection("users");
@@ -44,10 +45,10 @@ exports.handler = async function(event, context) {
       };
     }
 
-    await users.insertOne({ name, email, phone });
+    await users.insertOne({ name, email, phone, createdAt: new Date() });
 
     return {
-      statusCode: 200,
+      statusCode: 201,
       body: JSON.stringify({ message: "Registration successful" }),
     };
 
