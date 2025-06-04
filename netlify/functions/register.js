@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-let cachedClient = null; // To reuse the client in future calls
+let cachedClient = null;
 
 exports.handler = async function(event, context) {
   if (event.httpMethod !== "POST") {
@@ -15,7 +15,6 @@ exports.handler = async function(event, context) {
     const data = JSON.parse(event.body);
     const { name, email, phone } = data;
 
-    // Validate input
     if (!name || !email || !phone) {
       return {
         statusCode: 400,
@@ -23,17 +22,22 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // Connect to MongoDB
     const uri = process.env.MONGO_URI;
+    if (!uri) {
+      throw new Error("Missing MONGO_URI env variable");
+    }
+
     if (!cachedClient) {
-      cachedClient = new MongoClient(uri);
+      cachedClient = new MongoClient(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
       await cachedClient.connect();
     }
 
-    const db = cachedClient.db("jainandsonsDB"); // Use your DB name
+    const db = cachedClient.db("jainandsonsDB");
     const users = db.collection("users");
 
-    // Optional: Check if email already exists (for safety)
     const existing = await users.findOne({ email });
     if (existing) {
       return {
@@ -42,7 +46,6 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // Insert new user
     await users.insertOne({ name, email, phone });
 
     return {
