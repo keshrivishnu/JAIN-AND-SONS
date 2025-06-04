@@ -30,7 +30,8 @@ exports.handler = async function(event, context) {
     }
 
     if (!cachedClient) {
-      cachedClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        cachedClient = new MongoClient(uri);
+
       await cachedClient.connect();
     }
 
