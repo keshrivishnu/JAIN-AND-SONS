@@ -3,7 +3,9 @@ exports.handler = async (event, context) => {
   
     const allowedOrigins = [
       'http://127.0.0.1:5500',
-      'https://polite-klepon-205471.netlify.app'
+      'https://polite-klepon-205471.netlify.app',
+      'https://jainsonspatna.com',
+      'https://www.jainsonspatna.com'
     ];
   
     if (!origin || allowedOrigins.includes(origin)) {
